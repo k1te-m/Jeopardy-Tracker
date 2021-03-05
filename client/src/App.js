@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Dashboard from "./features/dashboard/Dashboard";
 import Landing from "./features/landing/Landing";
+import Login from "./features/landing/login/Login";
+import SignUp from "./features/landing/signup/Signup";
 
 function App() {
   return (
@@ -9,7 +10,8 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={Landing} />
-          <Route path="/" component={Dashboard} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/login" component={Login} />
         </Switch>
       </Router>
     </div>

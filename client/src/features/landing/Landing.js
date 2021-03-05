@@ -18,7 +18,10 @@ const Landing = () => {
         </div>
       </div>
       <div className="row login">
-        <button className="button">Login with Google</button>
+        <button className="button">Signup</button>
+      </div>
+      <div className="row login">
+        <button className="button">Login</button>
       </div>
     </div>
   );

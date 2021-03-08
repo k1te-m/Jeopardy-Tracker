@@ -21,12 +21,12 @@ const Landing = () => {
         </div>
         <div className="row login">
           <Link to="/signup">
-            <button className="button">Signup</button>
+            <button className="button btn">Signup</button>
           </Link>
         </div>
         <div className="row login">
           <Link to="/login">
-            <button className="button">Login</button>
+            <button className="button btn">Login</button>
           </Link>
         </div>
       </div>

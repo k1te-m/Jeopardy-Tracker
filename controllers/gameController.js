@@ -2,7 +2,8 @@ const Game = require("../models/Game");
 
 module.exports = {
   getUserGames: (req, res) => {
-    Game.find({})
+    const id = req.params.id;
+    Game.find({ userId: id })
       .sort({ date: -1 })
       .then((games) => res.json(games))
       .catch((error) => res.status(422).json(error));

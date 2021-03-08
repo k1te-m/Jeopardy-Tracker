@@ -6,7 +6,7 @@ const gameController = require("../../controllers/gameController");
 // @route   GET api/game
 // @desc    Get all of user games
 // @access  Private
-router.get("/", gameController.getUserGames);
+router.get("/:id", gameController.getUserGames);
 
 // @route   POST api/game
 // @desc    Create new game

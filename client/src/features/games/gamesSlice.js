@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
 import API from "../../utils/API";
 
 const initialState = {
@@ -15,18 +14,18 @@ const initialState = {
   },
 };
 
-export const createGame = createAsyncThunk(
-  "games/createGame",
+export const getGames = createAsyncThunk(
+  "games/getGames",
   async (userId, thunkAPI) => {
-    const response = await API.createGame(userId);
+    const response = await API.getMyGames(userId);
     return response.data;
   }
 );
 
-export const getGames = createAsyncThunk(
-  "games/getGames",
+export const createGame = createAsyncThunk(
+  "games/createGame",
   async (userId, thunkAPI) => {
-    const response = await API.getMyGames();
+    const response = await API.createGame(userId);
     return response.data;
   }
 );
@@ -37,26 +36,26 @@ const gamesSlice = createSlice({
   reducers: {},
   extraReducers: {
     [getGames.pending]: (state) => {
-      state.games.userGames.isLoading = true;
+      state.userGames.isLoading = true;
     },
     [getGames.fulfilled]: (state, action) => {
-      state.games.userGames.isLoading = false;
-      state.games.userGames.games = action.payload;
+      state.userGames.isLoading = false;
+      state.userGames.games = action.payload;
     },
-    // [getGames.rejected]: (state) => {
-    //   state.games.userGames.isLoading = false;
-    //   state.games.userGames.error = "Error fetching games.";
-    // },
+    [getGames.rejected]: (state) => {
+      state.userGames.isLoading = false;
+      state.userGames.error = "Error fetching games.";
+    },
     [createGame.pending]: (state) => {
-      state.games.newGame.isPending = true;
+      state.newGame.isPending = true;
     },
     [createGame.fulfilled]: (state, action) => {
-      state.games.newGame.isPending = false;
-      state.games.userGames.games.push(action.payload);
+      state.newGame.isPending = false;
+      state.userGames.games.push(action.payload);
     },
     [createGame.rejected]: (state) => {
-      state.games.newGame.isPending = false;
-      state.games.newGame.error = "Error creating game. Please try again.";
+      state.newGame.isPending = false;
+      state.newGame.error = "Error creating game. Please try again.";
     },
   },
 });

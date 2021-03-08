@@ -12,7 +12,6 @@ const gameSchema = new Schema({
   },
   score: {
     type: String,
-    required: true,
     default: 0,
   },
 });

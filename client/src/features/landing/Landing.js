@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { selectAuth, loadUser } from "../auth/authSlice";
 import "../../sass/main.scss";
 import { Link } from "react-router-dom";
 
-const Landing = () => {
+const Landing = (props) => {
+  const auth = useSelector(selectAuth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      props.history.push("/");
+    }
+    if (!auth.user) {
+      dispatch(loadUser());
+    }
+  }, [auth.isAuthenticated, auth.user, props.history, dispatch]);
   return (
     <>
       <div className="container-fluid landing">

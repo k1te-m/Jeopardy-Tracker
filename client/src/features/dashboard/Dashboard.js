@@ -9,12 +9,11 @@ const Dashboard = () => {
   const auth = useSelector(selectAuth);
 
   useEffect(() => {
-    dispatch(getGames());
-
     if (!auth.user) {
       dispatch(loadUser());
     }
-  }, []);
+    dispatch(getGames(auth.user._id));
+  }, [auth.user, dispatch]);
 
   return (
     <div className="container">

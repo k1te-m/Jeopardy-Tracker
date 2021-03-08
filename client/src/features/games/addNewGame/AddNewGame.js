@@ -4,11 +4,10 @@ import { selectAuth } from "../../auth/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const AddNewGame = () => {
-  const games = useSelector(selectGames);
   const auth = useSelector(selectAuth);
   const dispatch = useDispatch();
 
-  console.log(auth.user.id);
+  console.log(auth);
 
   return (
     <a onClick={() => dispatch(createGame({ userId: auth.user.id }))}>

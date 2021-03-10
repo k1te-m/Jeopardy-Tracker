@@ -15,6 +15,10 @@ const gameSchema = new Schema({
     type: String,
     default: 0,
   },
+  showDoubleJeopardy: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("Game", gameSchema);

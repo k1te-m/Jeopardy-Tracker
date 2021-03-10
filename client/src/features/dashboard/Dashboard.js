@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import LogoutButton from "../logout/LogoutButton";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAuth, LOGOUT, loadUser } from "../auth/authSlice";
-import { getGames, selectGames } from "../games/gamesSlice";
-import AddNewGame from "../games/addNewGame/AddNewGame";
+import { getGames } from "../games/gamesSlice";
+import AddNewGame from "../games/addnewgame/AddNewGame";
+import GameList from "../games/gamelist/GameList";
 const Dashboard = () => {
   const dispatch = useDispatch();
   const auth = useSelector(selectAuth);
@@ -28,7 +29,9 @@ const Dashboard = () => {
           <span>New Game</span> <AddNewGame />
         </div>
       </div>
-      <div className="row"></div>
+      <div className="row">
+        <GameList />
+      </div>
     </div>
   );
 };

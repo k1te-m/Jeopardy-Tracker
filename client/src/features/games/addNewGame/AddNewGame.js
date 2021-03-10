@@ -10,7 +10,7 @@ const AddNewGame = () => {
   console.log(auth);
 
   return (
-    <a onClick={() => dispatch(createGame({ userId: auth.user.id }))}>
+    <a onClick={() => dispatch(createGame({ userId: auth.user._id }))}>
       <i className="fas fa-plus-circle" />
     </a>
   );

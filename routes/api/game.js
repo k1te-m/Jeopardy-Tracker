@@ -8,6 +8,11 @@ const gameController = require("../../controllers/gameController");
 // @access  Private
 router.get("/:id", gameController.getUserGames);
 
+// @route   GET api/game/set
+// @desc    Get all of user games
+// @access  Private
+router.get("/set/:id", gameController.getSpecificGame);
+
 // @route   POST api/game
 // @desc    Create new game
 // @access  Private

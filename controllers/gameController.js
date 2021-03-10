@@ -8,6 +8,12 @@ module.exports = {
       .then((games) => res.json(games))
       .catch((error) => res.status(422).json(error));
   },
+  getSpecificGame: (req, res) => {
+    const id = req.params.id;
+    Game.findOne({ _id: id })
+      .then((game) => res.json(game))
+      .catch((error) => res.status(422).json(error));
+  },
   createNewGame: (req, res) => {
     Game.create(req.body)
       .then((game) => {

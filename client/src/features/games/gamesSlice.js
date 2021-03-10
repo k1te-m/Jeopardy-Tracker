@@ -12,12 +12,25 @@ const initialState = {
     games: [],
     error: null,
   },
+  currentGame: {
+    isLoading: false,
+    game: {},
+    error: null,
+  },
 };
 
 export const getGames = createAsyncThunk(
   "games/getGames",
   async (userId, thunkAPI) => {
     const response = await API.getMyGames(userId);
+    return response.data;
+  }
+);
+
+export const setCurrentGame = createAsyncThunk(
+  "games/setGame",
+  async (id, thunkAPI) => {
+    const response = await API.getGameById(id);
     return response.data;
   }
 );
@@ -46,6 +59,17 @@ const gamesSlice = createSlice({
       state.userGames.isLoading = false;
       state.userGames.error = "Error fetching games.";
     },
+    [setCurrentGame.pending]: (state) => {
+      state.currentGame.isLoading = true;
+    },
+    [setCurrentGame.fulfilled]: (state, action) => {
+      state.currentGame.isLoading = false;
+      state.currentGame.game = action.payload;
+    },
+    [setCurrentGame.rejected]: (state) => {
+      state.currentGame.isLoading = false;
+      state.currentGame.error = "Error fetching game.";
+    },
     [createGame.pending]: (state) => {
       state.newGame.isPending = true;
     },
@@ -65,5 +89,6 @@ export const selectGames = (state) => state.games;
 export const selectUserGamesLoading = (state) =>
   state.games.userGames.isLoading;
 export const selectUserGames = (state) => state.games.userGames.games;
+export const selectCurrentGame = (state) => state.games.currentGame;
 
 export default gamesSlice.reducer;

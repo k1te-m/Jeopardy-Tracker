@@ -8,7 +8,7 @@ const SignUp = (props) => {
 
   useEffect(() => {
     if (auth.isAuthenticated) {
-      props.history.push("/");
+      props.history.push("/dashboard");
     }
   }, [auth.error, auth.isAuthenticated, props.history]);
 

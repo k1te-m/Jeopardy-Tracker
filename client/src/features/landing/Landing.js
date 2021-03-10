@@ -10,7 +10,7 @@ const Landing = (props) => {
 
   useEffect(() => {
     if (auth.isAuthenticated) {
-      props.history.push("/");
+      props.history.push("/dashboard");
     }
     if (!auth.user) {
       dispatch(loadUser());

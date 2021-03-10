@@ -21,7 +21,9 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/login" component={Login} />
-          <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          <PrivateRoute exact path="/dashboard">
+            <Dashboard />
+          </PrivateRoute>
           <PrivateRoute path="/:game" component={Game} />
         </Switch>
       </Router>

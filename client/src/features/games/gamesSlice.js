@@ -60,6 +60,10 @@ const gamesSlice = createSlice({
   },
 });
 
+// Selectors
 export const selectGames = (state) => state.games;
+export const selectUserGamesLoading = (state) =>
+  state.games.userGames.isLoading;
+export const selectUserGames = (state) => state.games.userGames.games;
 
 export default gamesSlice.reducer;

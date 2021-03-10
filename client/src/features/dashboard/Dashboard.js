@@ -20,7 +20,7 @@ const Dashboard = () => {
     <div className="container">
       <div className="row">
         <div className="col-9">
-          <h1>Dashboard</h1>
+          <h3>Welcome, {auth.user.username}!</h3>
         </div>
         <div className="col-3">
           <div className="row">

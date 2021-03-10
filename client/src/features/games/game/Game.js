@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import GameBoard from "../gameBoard/GameBoard";
 import { selectCurrentGame, setCurrentGame } from "../gamesSlice";
 
 const Game = (props) => {
@@ -13,7 +14,16 @@ const Game = (props) => {
     dispatch(setCurrentGame(gameID));
   }, []);
 
-  return <p>Game</p>;
+  return (
+    <div className="container">
+      <div className="row">
+        <p>Game</p>
+      </div>
+      <div className="row">
+        <GameBoard />
+      </div>
+    </div>
+  );
 };
 
 export default Game;

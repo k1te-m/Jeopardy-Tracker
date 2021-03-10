@@ -5,6 +5,7 @@ import Dashboard from "./features/dashboard/Dashboard";
 import Landing from "./features/landing/Landing";
 import Login from "./features/landing/login/Login";
 import SignUp from "./features/landing/signup/Signup";
+import Game from "./features/games/game/Game";
 
 function App() {
   return (
@@ -20,9 +21,8 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/login" component={Login} />
-          <PrivateRoute exact path="/dashboard">
-            <Dashboard />
-          </PrivateRoute>
+          <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          <PrivateRoute path="/:game" component={Game} />
         </Switch>
       </Router>
     </div>

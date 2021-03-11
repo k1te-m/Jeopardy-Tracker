@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectCurrentGame } from "../gamesSlice";
+import { selectCurrentGame, TOGGLE_DOUBLEJ } from "../gamesSlice";
 import { selectModal, TOGGLE_MODAL } from "../gameModalSlice";
 import Modal from "./QuestionModal";
 
@@ -13,14 +13,16 @@ const GameBoard = () => {
   const showDJ = currentGame.game.showDoubleJeopardy;
   const showModal = useSelector(selectModal);
 
-  console.log(showModal);
+  console.log(showDJ);
 
-  const handleClick = (dollarAmount) => {
-    dispatch(TOGGLE_MODAL());
+  const handleClick = (e, data) => {
+    e.preventDefault();
+    dispatch(TOGGLE_DOUBLEJ());
+    console.log(e.target.innerText);
   };
 
   let dollarAmounts = jeopardy.map((dollarAmount) => (
-    <a onClick={() => handleClick(dollarAmount)}>
+    <a>
       <div className="card">
         <div className="card-body">
           <h5 className="card-title">{dollarAmount}</h5>
@@ -31,18 +33,25 @@ const GameBoard = () => {
 
   if (showDJ == true) {
     dollarAmounts = doubleJeopardy.map((dollarAmount) => (
-      <div className="card">
-        <div className="card-body">
-          <h5 className="card-title">{dollarAmount}</h5>
+      <a>
+        <div className="card">
+          <div className="card-body">
+            <h5 className="card-title">{dollarAmount}</h5>
+          </div>
         </div>
-      </div>
+      </a>
     ));
   }
 
   return (
     <>
-      <span>GameBoard</span>
-      {dollarAmounts}
+      <div className="row">
+        <span>GameBoard</span>
+      </div>
+      <div className="row">{dollarAmounts}</div>
+      <div className="row">
+        <button onClick={(e) => handleClick(e)}>Double Jeopardy!</button>
+      </div>
       <Modal isOpen={showModal} handleClose={() => dispatch(TOGGLE_MODAL())}>
         <div className="container"></div>
       </Modal>

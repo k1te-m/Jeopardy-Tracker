@@ -15,13 +15,11 @@ const Game = (props) => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
         <p>Game</p>
       </div>
-      <div className="row">
-        <GameBoard />
-      </div>
+      <GameBoard />
     </div>
   );
 };

@@ -46,7 +46,15 @@ export const createGame = createAsyncThunk(
 const gamesSlice = createSlice({
   name: "games",
   initialState,
-  reducers: {},
+  reducers: {
+    TOGGLE_DOUBLEJ: (state) => {
+      if (state.currentGame.game.showDoubleJeopardy === false) {
+        state.currentGame.game.showDoubleJeopardy = true;
+      } else {
+        state.currentGame.game.showDoubleJeopardy = false;
+      }
+    },
+  },
   extraReducers: {
     [getGames.pending]: (state) => {
       state.userGames.isLoading = true;
@@ -83,6 +91,8 @@ const gamesSlice = createSlice({
     },
   },
 });
+
+export const { TOGGLE_DOUBLEJ } = gamesSlice.actions;
 
 // Selectors
 export const selectGames = (state) => state.games;

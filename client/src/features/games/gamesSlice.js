@@ -15,7 +15,9 @@ const initialState = {
   currentGame: {
     isLoading: false,
     game: {},
+    currentQuestionValue: null,
     error: null,
+    toggleModal: false,
   },
 };
 
@@ -46,7 +48,25 @@ export const createGame = createAsyncThunk(
 const gamesSlice = createSlice({
   name: "games",
   initialState,
-  reducers: {},
+  reducers: {
+    TOGGLE_DOUBLEJ: (state) => {
+      if (state.currentGame.game.showDoubleJeopardy === false) {
+        state.currentGame.game.showDoubleJeopardy = true;
+      } else {
+        state.currentGame.game.showDoubleJeopardy = false;
+      }
+    },
+    TOGGLE_MODAL: (state) => {
+      if (state.currentGame.toggleModal === false) {
+        state.currentGame.toggleModal = true;
+      } else {
+        state.currentGame.toggleModal = false;
+      }
+    },
+    SET_QUESTION_VALUE: (state, action) => {
+      state.currentGame.currentQuestionValue = action.payload;
+    },
+  },
   extraReducers: {
     [getGames.pending]: (state) => {
       state.userGames.isLoading = true;
@@ -84,11 +104,20 @@ const gamesSlice = createSlice({
   },
 });
 
+export const {
+  TOGGLE_DOUBLEJ,
+  TOGGLE_MODAL,
+  SET_QUESTION_VALUE,
+} = gamesSlice.actions;
+
 // Selectors
 export const selectGames = (state) => state.games;
 export const selectUserGamesLoading = (state) =>
   state.games.userGames.isLoading;
 export const selectUserGames = (state) => state.games.userGames.games;
 export const selectCurrentGame = (state) => state.games.currentGame;
+export const selectModal = (state) => state.games.currentGame.toggleModal;
+export const selectCurrentValue = (state) =>
+  state.games.currentGame.currentQuestionValue;
 
 export default gamesSlice.reducer;

@@ -22,4 +22,18 @@ module.exports = {
       })
       .catch((error) => res.status(422).json(error));
   },
+  updateScore: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const game = await Game.findOne({ _id: id });
+
+      game.score = req.body.score;
+
+      await game.save();
+
+      res.send(game);
+    } catch (error) {
+      res.status(422).json(error);
+    }
+  },
 };

@@ -7,17 +7,29 @@ const Game = (props) => {
   const dispatch = useDispatch();
   const currentGame = useSelector(selectCurrentGame);
 
-  console.log(props.match.params.game);
   const gameID = props.match.params.game;
 
   useEffect(() => {
     dispatch(setCurrentGame(gameID));
   }, []);
 
+  const formatDate = (date) => {
+    const dateObj = new Date(date);
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const formattedDate = dateObj.toLocaleString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+      timeZone: tz,
+    });
+    const formattedTime = formattedDate;
+    return formattedTime;
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
-        <p>Game</p>
+        <p>{formatDate(currentGame.game.date)}</p>
       </div>
       <GameBoard />
     </div>

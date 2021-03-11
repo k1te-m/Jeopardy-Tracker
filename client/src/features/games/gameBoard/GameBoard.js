@@ -7,9 +7,13 @@ import {
   selectModal,
   SET_QUESTION_VALUE,
   selectCurrentValue,
+  INCREMENT_SCORE,
+  DECREMENT_SCORE,
+  updateGameScore,
 } from "../gamesSlice";
 // import { selectModal, TOGGLE_MODAL } from "../gameModalSlice";
 import Modal from "./QuestionModal";
+import API from "../../../utils/API";
 
 const jeopardy = ["$200", "$400", "$600", "$800", "$1000"];
 const doubleJeopardy = ["$400", "$800", "$1200", "$1600", "$2000"];
@@ -23,19 +27,35 @@ const GameBoard = () => {
 
   console.log(showDJ);
 
-  const handleDJClick = (e, data) => {
+  const handleDJClick = (e) => {
     e.preventDefault();
     dispatch(TOGGLE_DOUBLEJ());
-    console.log(e.target.innerText);
   };
 
   const handleDollarClick = (e) => {
     e.preventDefault();
-    console.log(e.target.innerText);
     const value = e.target.innerText;
     const editedValue = value.slice(1);
     const numValue = parseInt(editedValue);
     dispatch(SET_QUESTION_VALUE(numValue));
+    dispatch(TOGGLE_MODAL());
+  };
+
+  const handleCorrectAnswer = async (e) => {
+    e.preventDefault();
+    dispatch(INCREMENT_SCORE(currentValue));
+    const id = currentGame.game._id;
+    const score = currentGame.game.score + currentValue;
+    dispatch(updateGameScore({ id, score }));
+    dispatch(TOGGLE_MODAL());
+  };
+
+  const hanldeIncorrectAnswer = (e) => {
+    e.preventDefault();
+    dispatch(DECREMENT_SCORE(currentValue));
+    const id = currentGame.game._id;
+    const score = currentGame.game.score - currentValue;
+    dispatch(updateGameScore({ id, score }));
     dispatch(TOGGLE_MODAL());
   };
 
@@ -53,7 +73,7 @@ const GameBoard = () => {
     </a>
   ));
 
-  if (showDJ == true) {
+  if (showDJ === true) {
     dollarAmounts = doubleJeopardy.map((dollarAmount) => (
       <a
         onClick={(e) => {
@@ -72,7 +92,7 @@ const GameBoard = () => {
   return (
     <>
       <div className="row">
-        <span>GameBoard</span>
+        <span>Earnings: ${currentGame.game.score}</span>
       </div>
       <div className="row">{dollarAmounts}</div>
       <div className="row">
@@ -85,17 +105,19 @@ const GameBoard = () => {
           </div>
           <div className="row m-2">
             <div className="col">
-              <button>Correct</button>
+              <button onClick={(e) => handleCorrectAnswer(e)}>Correct</button>
             </div>
             <div className="col">
-              <button>Incorrect</button>
+              <button onClick={(e) => hanldeIncorrectAnswer(e)}>
+                Incorrect
+              </button>
             </div>
             <div className="row m-2">
               For Daily Double, please place your wager below.
             </div>
             <div className="row m-2">
               <form>
-                <label for="wager">Wager:</label>
+                <label htmlFor="wager">Wager:</label>
                 <input name="wager" id="wager" />
               </form>
             </div>

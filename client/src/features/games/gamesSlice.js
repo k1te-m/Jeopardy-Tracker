@@ -15,7 +15,9 @@ const initialState = {
   currentGame: {
     isLoading: false,
     game: {},
+    currentQuestionValue: null,
     error: null,
+    toggleModal: false,
   },
 };
 
@@ -53,6 +55,16 @@ const gamesSlice = createSlice({
       } else {
         state.currentGame.game.showDoubleJeopardy = false;
       }
+    },
+    TOGGLE_MODAL: (state) => {
+      if (state.currentGame.toggleModal === false) {
+        state.currentGame.toggleModal = true;
+      } else {
+        state.currentGame.toggleModal = false;
+      }
+    },
+    SET_QUESTION_VALUE: (state, action) => {
+      state.currentGame.currentQuestionValue = action.payload;
     },
   },
   extraReducers: {
@@ -92,7 +104,11 @@ const gamesSlice = createSlice({
   },
 });
 
-export const { TOGGLE_DOUBLEJ } = gamesSlice.actions;
+export const {
+  TOGGLE_DOUBLEJ,
+  TOGGLE_MODAL,
+  SET_QUESTION_VALUE,
+} = gamesSlice.actions;
 
 // Selectors
 export const selectGames = (state) => state.games;
@@ -100,5 +116,8 @@ export const selectUserGamesLoading = (state) =>
   state.games.userGames.isLoading;
 export const selectUserGames = (state) => state.games.userGames.games;
 export const selectCurrentGame = (state) => state.games.currentGame;
+export const selectModal = (state) => state.games.currentGame.toggleModal;
+export const selectCurrentValue = (state) =>
+  state.games.currentGame.currentQuestionValue;
 
 export default gamesSlice.reducer;

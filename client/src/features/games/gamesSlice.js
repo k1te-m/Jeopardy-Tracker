@@ -45,6 +45,14 @@ export const createGame = createAsyncThunk(
   }
 );
 
+export const updateGameScore = createAsyncThunk(
+  "games/updateScore",
+  async ({ id, score }, thunkAPI) => {
+    const response = await API.updateScore(id, { id, score });
+    return response.data;
+  }
+);
+
 const gamesSlice = createSlice({
   name: "games",
   initialState,
@@ -65,6 +73,12 @@ const gamesSlice = createSlice({
     },
     SET_QUESTION_VALUE: (state, action) => {
       state.currentGame.currentQuestionValue = action.payload;
+    },
+    INCREMENT_SCORE: (state, action) => {
+      state.currentGame.game.score += action.payload;
+    },
+    DECREMENT_SCORE: (state, action) => {
+      state.currentGame.game.score -= action.payload;
     },
   },
   extraReducers: {
@@ -108,6 +122,8 @@ export const {
   TOGGLE_DOUBLEJ,
   TOGGLE_MODAL,
   SET_QUESTION_VALUE,
+  INCREMENT_SCORE,
+  DECREMENT_SCORE,
 } = gamesSlice.actions;
 
 // Selectors

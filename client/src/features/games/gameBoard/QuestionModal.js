@@ -21,6 +21,7 @@ const ModalContainer = styled(motion.div)`
   transform: translate(-50%, -50%);
   border-radius: 12px;
   border: 1px solid #3b945e;
+  text-align: center;
   @media screen and (min-width: 576px) {
     width: 450px;
   }

@@ -12,7 +12,7 @@ const gameSchema = new Schema({
     default: Date.now,
   },
   score: {
-    type: String,
+    type: Number,
     default: 0,
   },
   showDoubleJeopardy: {

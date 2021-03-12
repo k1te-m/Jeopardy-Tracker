@@ -12,6 +12,7 @@ import {
   updateGameScore,
 } from "../gamesSlice";
 import Modal from "./QuestionModal";
+import { SET_ALERT } from "../../alert/alertSlice";
 
 const jeopardy = ["$200", "$400", "$600", "$800", "$1000"];
 const doubleJeopardy = ["$400", "$800", "$1200", "$1600", "$2000"];
@@ -51,11 +52,21 @@ const GameBoard = () => {
     if (currentGame.game.score < 1000) {
       if (wagerInt > 1000) {
         setWagerObject({ ...wagerObject, wager: "" });
-        return alert("Cannot wager more than $1000.");
+        return dispatch(
+          SET_ALERT({
+            message: "Cannot wager more than $1000.",
+            type: "danger",
+          })
+        );
       }
     } else if (wagerInt > currentGame.game.score) {
       setWagerObject({ ...wagerObject, wager: "" });
-      return alert("Cannot wager more than current earnings.");
+      return dispatch(
+        SET_ALERT({
+          message: "Cannot wager more than current earnings.",
+          type: "danger",
+        })
+      );
     } else if (response === "correct") {
       dispatch(INCREMENT_SCORE(wagerInt));
 
@@ -109,32 +120,34 @@ const GameBoard = () => {
   };
 
   let dollarAmounts = jeopardy.map((dollarAmount) => (
-    <a
+    <button
       onClick={(e) => {
         handleDollarClick(e);
       }}
+      key={dollarAmount}
     >
       <div className="card">
         <div className="card-body">
           <h5 className="card-title">{dollarAmount}</h5>
         </div>
       </div>
-    </a>
+    </button>
   ));
 
   if (showDJ === true) {
     dollarAmounts = doubleJeopardy.map((dollarAmount) => (
-      <a
+      <button
         onClick={(e) => {
           handleDollarClick(e);
         }}
+        key={dollarAmount}
       >
         <div className="card">
           <div className="card-body">
             <h5 className="card-title">{dollarAmount}</h5>
           </div>
         </div>
-      </a>
+      </button>
     ));
   }
 

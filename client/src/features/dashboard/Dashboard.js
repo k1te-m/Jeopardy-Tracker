@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import LogoutButton from "../logout/LogoutButton";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAuth, LOGOUT, loadUser } from "../auth/authSlice";
-import { getGames } from "../games/gamesSlice";
-import AddNewGame from "../games/addnewgame/AddNewGame";
+import { getGames, createGame } from "../games/gamesSlice";
 import GameList from "../games/gamelist/GameList";
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -26,7 +25,10 @@ const Dashboard = () => {
           <div className="row">
             <LogoutButton logout={() => dispatch(LOGOUT())} />
           </div>
-          <span>New Game</span> <AddNewGame />
+          <span>New Game</span>
+          <a onClick={() => dispatch(createGame({ userId: auth.user._id }))}>
+            <i className="fas fa-plus-circle" />
+          </a>
         </div>
       </div>
       <div className="row">

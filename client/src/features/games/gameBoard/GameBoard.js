@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectCurrentGame,
@@ -24,6 +24,10 @@ const GameBoard = () => {
   const showDJ = currentGame.game.showDoubleJeopardy;
   const showModal = useSelector(selectModal);
   const currentValue = useSelector(selectCurrentValue);
+
+  const [wager, setWager] = useState(0);
+
+  console.log(wager);
 
   console.log(showDJ);
 
@@ -57,6 +61,11 @@ const GameBoard = () => {
     const score = currentGame.game.score - currentValue;
     dispatch(updateGameScore({ id, score }));
     dispatch(TOGGLE_MODAL());
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setChannelObject({ ...channelObject, [name]: value });
   };
 
   let dollarAmounts = jeopardy.map((dollarAmount) => (
@@ -118,7 +127,7 @@ const GameBoard = () => {
             <div className="row m-2">
               <form>
                 <label htmlFor="wager">Wager:</label>
-                <input name="wager" id="wager" />
+                <input name="wager" id="wager" value={wager} />
               </form>
             </div>
           </div>

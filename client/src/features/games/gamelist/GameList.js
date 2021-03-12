@@ -1,10 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectUserGames, selectUserGamesLoading } from "../gamesSlice";
+import { selectUserGames } from "../gamesSlice";
 import { useHistory } from "react-router-dom";
 
 const GameList = () => {
-  const gamesLoading = useSelector(selectUserGamesLoading);
   const userGames = useSelector(selectUserGames);
 
   let history = useHistory();
@@ -27,7 +26,7 @@ const GameList = () => {
     userGameList = userGames.map((game) => (
       <div className="card" key={game._id}>
         <div className="card-body">
-          <a
+          <button
             onClick={() => {
               localStorage.setItem("game", game._id);
               history.push(`/${game._id}`);
@@ -35,7 +34,7 @@ const GameList = () => {
           >
             <h3 className="card-title">{formatDate(game.date)}</h3>
             <h5 className="card-subtitle">Winnings: ${game.score}</h5>
-          </a>
+          </button>
         </div>
       </div>
     ));

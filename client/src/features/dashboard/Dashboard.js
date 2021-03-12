@@ -26,9 +26,11 @@ const Dashboard = () => {
             <LogoutButton logout={() => dispatch(LOGOUT())} />
           </div>
           <span>New Game</span>
-          <a onClick={() => dispatch(createGame({ userId: auth.user._id }))}>
+          <button
+            onClick={() => dispatch(createGame({ userId: auth.user._id }))}
+          >
             <i className="fas fa-plus-circle" />
-          </a>
+          </button>
         </div>
       </div>
       <div className="row">

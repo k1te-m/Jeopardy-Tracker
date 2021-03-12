@@ -11,7 +11,7 @@ const Game = (props) => {
 
   useEffect(() => {
     dispatch(setCurrentGame(gameID));
-  }, []);
+  }, [dispatch, gameID]);
 
   const formatDate = (date) => {
     const dateObj = new Date(date);

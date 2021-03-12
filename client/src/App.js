@@ -7,6 +7,7 @@ import Login from "./features/landing/login/Login";
 import SignUp from "./features/landing/signup/Signup";
 import Game from "./features/games/game/Game";
 import setAuthToken from "./utils/setAuthToken";
+import Alert from "./features/alert/Alert";
 
 function App() {
   if (localStorage.token) {
@@ -16,13 +17,8 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <Alert />
         <Switch>
-          {/* <PrivateRoute exact path="/">
-            <Dashboard />
-          </PrivateRoute>
-          <Route path="/welcome" component={Landing} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/login" component={Login} /> */}
           <Route exact path="/" component={Landing} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/login" component={Login} />

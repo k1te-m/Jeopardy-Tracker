@@ -7,7 +7,6 @@ const GameList = () => {
   const gamesLoading = useSelector(selectUserGamesLoading);
   const userGames = useSelector(selectUserGames);
 
-  console.log(userGames);
   let history = useHistory();
 
   let userGameList = <p>No games found.</p>;
@@ -25,7 +24,6 @@ const GameList = () => {
   };
 
   if (userGames !== []) {
-    console.log("Games populated.");
     userGameList = userGames.map((game) => (
       <div className="card" key={game._id}>
         <div className="card-body">

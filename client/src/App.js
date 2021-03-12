@@ -6,8 +6,13 @@ import Landing from "./features/landing/Landing";
 import Login from "./features/landing/login/Login";
 import SignUp from "./features/landing/signup/Signup";
 import Game from "./features/games/game/Game";
+import setAuthToken from "./utils/setAuthToken";
 
 function App() {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
   return (
     <div className="App">
       <Router>

@@ -25,8 +25,6 @@ const GameBoard = () => {
   const showModal = useSelector(selectModal);
   const currentValue = useSelector(selectCurrentValue);
 
-  console.log(showDJ);
-
   const handleDJClick = (e) => {
     e.preventDefault();
     dispatch(TOGGLE_DOUBLEJ());

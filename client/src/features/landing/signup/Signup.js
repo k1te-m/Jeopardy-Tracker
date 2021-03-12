@@ -25,7 +25,6 @@ const SignUp = (props) => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserObject({ ...userObject, [name]: value });
-    console.log(userObject);
   };
 
   const handleFormSubmit = (event) => {

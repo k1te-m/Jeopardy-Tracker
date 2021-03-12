@@ -56,7 +56,7 @@ export const loginUser = createAsyncThunk(
       { email, password },
       config
     );
-
+    setAuthToken(response.data.token);
     return response.data;
   }
 );

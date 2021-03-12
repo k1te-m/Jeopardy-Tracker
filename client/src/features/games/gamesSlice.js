@@ -18,6 +18,7 @@ const initialState = {
     currentQuestionValue: null,
     error: null,
     toggleModal: false,
+    toggleFinalJeopardy: false,
   },
 };
 
@@ -69,6 +70,13 @@ const gamesSlice = createSlice({
         state.currentGame.toggleModal = true;
       } else {
         state.currentGame.toggleModal = false;
+      }
+    },
+    TOGGLE_FJ: (state) => {
+      if (state.currentGame.toggleFinalJeopardy === false) {
+        state.currentGame.toggleFinalJeopardy = true;
+      } else {
+        state.currentGame.toggleFinalJeopardy = false;
       }
     },
     SET_QUESTION_VALUE: (state, action) => {
@@ -124,6 +132,7 @@ export const {
   SET_QUESTION_VALUE,
   INCREMENT_SCORE,
   DECREMENT_SCORE,
+  TOGGLE_FJ,
 } = gamesSlice.actions;
 
 // Selectors
@@ -135,5 +144,7 @@ export const selectCurrentGame = (state) => state.games.currentGame;
 export const selectModal = (state) => state.games.currentGame.toggleModal;
 export const selectCurrentValue = (state) =>
   state.games.currentGame.currentQuestionValue;
+export const selectFinalJeopardy = (state) =>
+  state.games.currentGame.toggleFinalJeopardy;
 
 export default gamesSlice.reducer;

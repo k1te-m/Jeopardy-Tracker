@@ -10,6 +10,8 @@ import {
   INCREMENT_SCORE,
   DECREMENT_SCORE,
   updateGameScore,
+  selectFinalJeopardy,
+  TOGGLE_FJ,
 } from "../gamesSlice";
 import Modal from "./QuestionModal";
 import { SET_ALERT } from "../../alert/alertSlice";
@@ -23,14 +25,19 @@ const GameBoard = () => {
   const showDJ = currentGame.game.showDoubleJeopardy;
   const showModal = useSelector(selectModal);
   const currentValue = useSelector(selectCurrentValue);
+  const showFJ = useSelector(selectFinalJeopardy);
+
+  console.log(showFJ);
 
   const [wagerObject, setWagerObject] = useState({
     wager: "",
+    finalJWager: "",
   });
 
-  const { wager } = wagerObject;
+  const { wager, finalJWager } = wagerObject;
 
   const wagerInt = parseInt(wager);
+  const finalJWagerInt = parseInt(finalJWager);
 
   const noWager = isNaN(wagerInt);
 
@@ -46,6 +53,11 @@ const GameBoard = () => {
     const numValue = parseInt(editedValue);
     dispatch(SET_QUESTION_VALUE(numValue));
     dispatch(TOGGLE_MODAL());
+  };
+
+  const handleFJClick = (e) => {
+    e.preventDefault();
+    dispatch(TOGGLE_FJ());
   };
 
   const checkWager = (response) => {
@@ -88,6 +100,7 @@ const GameBoard = () => {
 
   const handleCorrectAnswer = (e) => {
     e.preventDefault();
+
     if (noWager) {
       dispatch(INCREMENT_SCORE(currentValue));
 
@@ -103,10 +116,13 @@ const GameBoard = () => {
 
   const hanldeIncorrectAnswer = (e) => {
     e.preventDefault();
+
     if (noWager) {
       dispatch(DECREMENT_SCORE(currentValue));
+
       const id = currentGame.game._id;
       const score = currentGame.game.score - currentValue;
+
       dispatch(updateGameScore({ id, score }));
       dispatch(TOGGLE_MODAL());
     } else {
@@ -117,6 +133,45 @@ const GameBoard = () => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setWagerObject({ ...wagerObject, [name]: parseInt(value) });
+    console.log(wagerObject);
+  };
+
+  const checkFJWager = (response) => {
+    if (finalJWagerInt > currentGame.game.score) {
+      return dispatch(
+        SET_ALERT({
+          message: "Cannot wager more than current earnings.",
+          type: "danger",
+        })
+      );
+    } else if (response === "correct") {
+      dispatch(INCREMENT_SCORE(finalJWagerInt));
+
+      const id = currentGame.game._id;
+      const score = currentGame.game.score + finalJWagerInt;
+
+      dispatch(updateGameScore({ id, score }));
+      setWagerObject({ ...wagerObject, finalJWager: "" });
+      dispatch(TOGGLE_FJ());
+    } else if (response === "incorrect") {
+      dispatch(DECREMENT_SCORE(finalJWagerInt));
+
+      const id = currentGame.game._id;
+      const score = currentGame.game.score - finalJWagerInt;
+
+      dispatch(updateGameScore({ id, score }));
+      setWagerObject({ ...wagerObject, finalJWager: "" });
+      dispatch(TOGGLE_FJ());
+    }
+  };
+
+  const handleFJ = (e, response) => {
+    e.preventDefault();
+    if (response === "correct") {
+      checkFJWager("correct");
+    } else {
+      checkFJWager("incorrect");
+    }
   };
 
   let dollarAmounts = jeopardy.map((dollarAmount) => (
@@ -157,9 +212,25 @@ const GameBoard = () => {
         <span>Earnings: ${currentGame.game.score}</span>
       </div>
       <div className="row">{dollarAmounts}</div>
-      <div className="row">
-        <button onClick={(e) => handleDJClick(e)}>Double Jeopardy!</button>
-      </div>
+      {showDJ === false && (
+        <div className="row">
+          <button onClick={(e) => handleDJClick(e)}>
+            Move to Double Jeopardy!
+          </button>
+        </div>
+      )}
+      {showDJ === true && (
+        <>
+          <div className="row">
+            <button onClick={(e) => handleFJClick(e)}>Final Jeopardy!</button>
+          </div>
+          <div className="row">
+            <button onClick={(e) => handleDJClick(e)}>
+              Back to prior round.
+            </button>
+          </div>
+        </>
+      )}
       <Modal isOpen={showModal} handleClose={() => dispatch(TOGGLE_MODAL())}>
         <div className="container">
           <div className="row m-2">
@@ -184,6 +255,38 @@ const GameBoard = () => {
                   name="wager"
                   id="wager"
                   value={wager}
+                  onChange={handleInputChange}
+                  className="form-control"
+                  type="number"
+                  placeholder="$1000"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
+      <Modal isOpen={showFJ} handleClose={() => dispatch(TOGGLE_FJ())}>
+        <div className="container">
+          <div className="row m-2">
+            <h3>Final Jeopardy!</h3>
+          </div>
+          <div className="row m-2">
+            <div className="col">
+              <button onClick={(e) => handleFJ(e, "correct")}>Correct</button>
+            </div>
+            <div className="col">
+              <button onClick={(e) => handleFJ(e, "incorrect")}>
+                Incorrect
+              </button>
+            </div>
+            <div className="row">Please enter your wager below.</div>
+            <div className="row m-2">
+              <div className="form-group">
+                <label htmlFor="wager">Wager:</label>
+                <input
+                  name="finalJWager"
+                  id="finalJWager"
+                  value={finalJWager}
                   onChange={handleInputChange}
                   className="form-control"
                   type="number"

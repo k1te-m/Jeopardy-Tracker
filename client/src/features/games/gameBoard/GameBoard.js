@@ -11,9 +11,7 @@ import {
   DECREMENT_SCORE,
   updateGameScore,
 } from "../gamesSlice";
-// import { selectModal, TOGGLE_MODAL } from "../gameModalSlice";
 import Modal from "./QuestionModal";
-import API from "../../../utils/API";
 
 const jeopardy = ["$200", "$400", "$600", "$800", "$1000"];
 const doubleJeopardy = ["$400", "$800", "$1200", "$1600", "$2000"];
@@ -25,11 +23,15 @@ const GameBoard = () => {
   const showModal = useSelector(selectModal);
   const currentValue = useSelector(selectCurrentValue);
 
-  const [wager, setWager] = useState(0);
+  const [wagerObject, setWagerObject] = useState({
+    wager: "",
+  });
 
-  console.log(wager);
+  const { wager } = wagerObject;
 
-  console.log(showDJ);
+  const wagerInt = parseInt(wager);
+
+  const noWager = isNaN(wagerInt);
 
   const handleDJClick = (e) => {
     e.preventDefault();
@@ -45,27 +47,65 @@ const GameBoard = () => {
     dispatch(TOGGLE_MODAL());
   };
 
-  const handleCorrectAnswer = async (e) => {
+  const checkWager = (response) => {
+    if (currentGame.game.score < 1000) {
+      if (wagerInt > 1000) {
+        setWagerObject({ ...wagerObject, wager: "" });
+        return alert("Cannot wager more than $1000.");
+      }
+    } else if (wagerInt > currentGame.game.score) {
+      setWagerObject({ ...wagerObject, wager: "" });
+      return alert("Cannot wager more than current earnings.");
+    } else if (response === "correct") {
+      dispatch(INCREMENT_SCORE(wagerInt));
+
+      const id = currentGame.game._id;
+      const score = currentGame.game.score + wagerInt;
+
+      dispatch(updateGameScore({ id, score }));
+      setWagerObject({ ...wagerObject, wager: "" });
+      dispatch(TOGGLE_MODAL());
+    } else if (response === "incorrect") {
+      dispatch(DECREMENT_SCORE(wagerInt));
+      const id = currentGame.game._id;
+      const score = currentGame.game.score - wagerInt;
+      dispatch(updateGameScore({ id, score }));
+      setWagerObject({ ...wagerObject, wager: "" });
+      dispatch(TOGGLE_MODAL());
+    }
+  };
+
+  const handleCorrectAnswer = (e) => {
     e.preventDefault();
-    dispatch(INCREMENT_SCORE(currentValue));
-    const id = currentGame.game._id;
-    const score = currentGame.game.score + currentValue;
-    dispatch(updateGameScore({ id, score }));
-    dispatch(TOGGLE_MODAL());
+    if (noWager) {
+      dispatch(INCREMENT_SCORE(currentValue));
+
+      const id = currentGame.game._id;
+      const score = currentGame.game.score + currentValue;
+
+      dispatch(updateGameScore({ id, score }));
+      dispatch(TOGGLE_MODAL());
+    } else {
+      checkWager("correct");
+    }
   };
 
   const hanldeIncorrectAnswer = (e) => {
     e.preventDefault();
-    dispatch(DECREMENT_SCORE(currentValue));
-    const id = currentGame.game._id;
-    const score = currentGame.game.score - currentValue;
-    dispatch(updateGameScore({ id, score }));
-    dispatch(TOGGLE_MODAL());
+    if (noWager) {
+      dispatch(DECREMENT_SCORE(currentValue));
+      const id = currentGame.game._id;
+      const score = currentGame.game.score - currentValue;
+      dispatch(updateGameScore({ id, score }));
+      dispatch(TOGGLE_MODAL());
+    } else {
+      checkWager("incorrect");
+    }
   };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setChannelObject({ ...channelObject, [name]: value });
+    setWagerObject({ ...wagerObject, [name]: parseInt(value) });
   };
 
   let dollarAmounts = jeopardy.map((dollarAmount) => (
@@ -125,10 +165,18 @@ const GameBoard = () => {
               For Daily Double, please place your wager below.
             </div>
             <div className="row m-2">
-              <form>
+              <div className="form-group">
                 <label htmlFor="wager">Wager:</label>
-                <input name="wager" id="wager" value={wager} />
-              </form>
+                <input
+                  name="wager"
+                  id="wager"
+                  value={wager}
+                  onChange={handleInputChange}
+                  className="form-control"
+                  type="number"
+                  placeholder="$1000"
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAuth, loginUser } from "../../auth/authSlice";
+import { SET_ALERT } from "../../alert/alertSlice";
 
 const Login = (props) => {
   const auth = useSelector(selectAuth);
@@ -28,14 +29,21 @@ const Login = (props) => {
     event.preventDefault();
     const mailformat = /.+@.+\..+/;
     if (email === "" || password === "") {
-      alert("Please enter all available fields.");
+      dispatch(
+        SET_ALERT({
+          message: "Please enter all available fields.",
+          type: "danger",
+        })
+      );
     } else if (!email.match(mailformat)) {
-      alert("Please enter a valid email address.");
+      dispatch(
+        SET_ALERT({
+          message: "Please enter a valid email address.",
+          type: "danger",
+        })
+      );
     } else {
       dispatch(loginUser({ email, password }));
-      if (typeof auth.error === "string") {
-        alert(auth.error);
-      }
     }
   };
 

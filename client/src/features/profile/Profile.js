@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectAuth, loadUser, LOGOUT } from "../auth/authSlice";
+import { selectAuth, loadUser } from "../auth/authSlice";
 import {
   selectProfile,
   setUserProfile,
   getProfileGames,
 } from "../profile/profileSlice";
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
 
 const Profile = (props) => {
   const dispatch = useDispatch();
@@ -19,9 +21,12 @@ const Profile = (props) => {
   console.log(profile);
 
   useEffect(() => {
+    if (!auth.user) {
+      dispatch(loadUser());
+    }
     dispatch(setUserProfile(username));
     dispatch(getProfileGames(username));
-  }, [dispatch, username]);
+  }, [dispatch, username, auth.user]);
 
   const formatDate = (date) => {
     const dateObj = new Date(date);
@@ -50,18 +55,22 @@ const Profile = (props) => {
   }
 
   return (
-    <div className="container">
-      <div className="row">
-        <h1>{profile.user.username}</h1>
+    <>
+      <Header />
+      <div className="container">
+        <div className="row">
+          <h1>{profile.user.username}</h1>
+        </div>
+        <div className="row">
+          <h5>Joined: {formatDate(profile.user.register_date)}</h5>
+        </div>
+        <div className="row">
+          <p>Recent games:</p>
+        </div>
+        <div className="row">{gameList}</div>
       </div>
-      <div className="row">
-        <h5>Joined: {formatDate(profile.user.register_date)}</h5>
-      </div>
-      <div className="row">
-        <p>Recent games:</p>
-      </div>
-      <div className="row">{gameList}</div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

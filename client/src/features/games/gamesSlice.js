@@ -40,8 +40,11 @@ export const setCurrentGame = createAsyncThunk(
 
 export const createGame = createAsyncThunk(
   "games/createGame",
-  async (userId, thunkAPI) => {
-    const response = await API.createGame(userId);
+  async ({ userId, username }, thunkAPI) => {
+    const response = await API.createGame({
+      userId: userId,
+      username: username,
+    });
     return response.data;
   }
 );

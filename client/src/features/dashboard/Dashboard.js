@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
-import LogoutButton from "../logout/LogoutButton";
 import { useSelector, useDispatch } from "react-redux";
-import { selectAuth, LOGOUT, loadUser } from "../auth/authSlice";
+import { selectAuth, loadUser } from "../auth/authSlice";
 import { getGames, createGame } from "../games/gamesSlice";
 import GameList from "../games/gamelist/GameList";
-import { useHistory } from "react-router-dom";
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
 const Dashboard = () => {
   const dispatch = useDispatch();
   const auth = useSelector(selectAuth);
-  const history = useHistory();
 
   useEffect(() => {
     if (!auth.user) {
@@ -18,27 +17,14 @@ const Dashboard = () => {
   }, [auth.user, dispatch]);
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-9">
-          <div className="row">
+    <>
+      <Header />
+      <div className="container">
+        <div className="row">
+          <div className="col-9">
             <h3>Welcome, {auth.user.username}!</h3>
           </div>
-          <div className="row">
-            <button
-              onClick={() => {
-                history.push(`/profile/${auth.user.username}`);
-              }}
-            >
-              Profile
-            </button>
-          </div>
-        </div>
-        <div className="col-3">
-          <div className="row">
-            <LogoutButton logout={() => dispatch(LOGOUT())} />
-          </div>
-          <div className="row">
+          <div className="col-3">
             <span>New Game</span>
             <button
               onClick={() =>
@@ -54,11 +40,12 @@ const Dashboard = () => {
             </button>
           </div>
         </div>
+        <div className="row">
+          <GameList />
+        </div>
       </div>
-      <div className="row">
-        <GameList />
-      </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

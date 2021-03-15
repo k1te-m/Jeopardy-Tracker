@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectAuth, loadUser } from "../auth/authSlice";
 import "../../sass/main.scss";
 import { Link } from "react-router-dom";
+import Footer from "../footer/Footer";
 
 const Landing = (props) => {
   const auth = useSelector(selectAuth);
@@ -21,7 +22,7 @@ const Landing = (props) => {
       <div className="container-fluid landing">
         <div className="row header">
           <div className="col-12">
-            <h1>Welcome to Jeopardy! Tracker.</h1>
+            <h1>Welcome to True Daily Double!.</h1>
           </div>
         </div>
         <div className="row subtext">
@@ -43,6 +44,7 @@ const Landing = (props) => {
           </Link>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

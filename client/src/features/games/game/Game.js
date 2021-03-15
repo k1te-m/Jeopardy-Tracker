@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import GameBoard from "../gameBoard/GameBoard";
 import { selectCurrentGame, setCurrentGame } from "../gamesSlice";
+import Header from "../../header/Header";
+import Footer from "../../footer/Footer";
 
 const Game = (props) => {
   const dispatch = useDispatch();
@@ -27,12 +29,16 @@ const Game = (props) => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <p>{formatDate(currentGame.game.date)}</p>
+    <>
+      <Header />
+      <div className="container-fluid">
+        <div className="row">
+          <p>{formatDate(currentGame.game.date)}</p>
+        </div>
+        <GameBoard />
       </div>
-      <GameBoard />
-    </div>
+      <Footer />
+    </>
   );
 };
 

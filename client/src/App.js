@@ -8,6 +8,7 @@ import SignUp from "./features/landing/signup/Signup";
 import Game from "./features/games/game/Game";
 import setAuthToken from "./utils/setAuthToken";
 import Alert from "./features/alert/Alert";
+import Profile from "./features/profile/Profile";
 
 function App() {
   if (localStorage.token) {
@@ -25,6 +26,7 @@ function App() {
           <PrivateRoute exact path="/dashboard">
             <Dashboard />
           </PrivateRoute>
+          <PrivateRoute path="/profile/:username" component={Profile} />
           <PrivateRoute path="/:game" component={Game} />
         </Switch>
       </Router>

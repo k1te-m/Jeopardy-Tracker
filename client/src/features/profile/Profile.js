@@ -8,6 +8,7 @@ import {
 } from "../profile/profileSlice";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+import ProfileChart from "./chart/ProfileChart";
 
 const Profile = (props) => {
   const dispatch = useDispatch();
@@ -68,6 +69,9 @@ const Profile = (props) => {
           <p>Recent games:</p>
         </div>
         <div className="row">{gameList}</div>
+        <div className="row">
+          <ProfileChart />
+        </div>
       </div>
       <Footer />
     </>

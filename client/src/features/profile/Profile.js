@@ -17,11 +17,7 @@ const Profile = (props) => {
   const profile = useSelector(selectProfile);
   const history = useHistory();
 
-  console.log(props);
-
   const username = props.match.params.username;
-
-  console.log(profile);
 
   useEffect(() => {
     if (!auth.user) {

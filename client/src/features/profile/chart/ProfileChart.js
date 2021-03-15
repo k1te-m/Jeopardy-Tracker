@@ -7,8 +7,6 @@ const ProfileChart = () => {
   const profile = useSelector(selectProfile);
   const { games } = profile;
 
-  console.log(games);
-
   const formatDate = (date) => {
     const dateObj = new Date(date);
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;

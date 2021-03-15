@@ -27,8 +27,6 @@ const GameBoard = () => {
   const currentValue = useSelector(selectCurrentValue);
   const showFJ = useSelector(selectFinalJeopardy);
 
-  console.log(showFJ);
-
   const [wagerObject, setWagerObject] = useState({
     wager: "",
     finalJWager: "",
@@ -133,7 +131,6 @@ const GameBoard = () => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setWagerObject({ ...wagerObject, [name]: parseInt(value) });
-    console.log(wagerObject);
   };
 
   const checkFJWager = (response) => {

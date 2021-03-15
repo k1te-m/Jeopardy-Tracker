@@ -8,11 +8,14 @@ import {
 } from "../profile/profileSlice";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+import { useHistory } from "react-router-dom";
+import ProfileChart from "./chart/ProfileChart";
 
 const Profile = (props) => {
   const dispatch = useDispatch();
   const auth = useSelector(selectAuth);
   const profile = useSelector(selectProfile);
+  const history = useHistory();
 
   console.log(props);
 
@@ -24,9 +27,12 @@ const Profile = (props) => {
     if (!auth.user) {
       dispatch(loadUser());
     }
+    if (!auth.isAuthenticated) {
+      history.push("/");
+    }
     dispatch(setUserProfile(username));
     dispatch(getProfileGames(username));
-  }, [dispatch, username, auth.user]);
+  }, [dispatch, username, auth.user, auth.isAuthenticated, history]);
 
   const formatDate = (date) => {
     const dateObj = new Date(date);
@@ -68,6 +74,9 @@ const Profile = (props) => {
           <p>Recent games:</p>
         </div>
         <div className="row">{gameList}</div>
+        <div className="row">
+          <ProfileChart />
+        </div>
       </div>
       <Footer />
     </>

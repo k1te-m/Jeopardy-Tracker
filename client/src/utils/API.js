@@ -13,4 +13,10 @@ export default {
   updateScore: async (id, data) => {
     return await axios.put("/api/game/save/" + id, data);
   },
+  getUserProfile: async (username) => {
+    return await axios.get("/api/user/" + username);
+  },
+  getProfileGames: async (username) => {
+    return await axios.get("/api/user/games/" + username);
+  },
 };

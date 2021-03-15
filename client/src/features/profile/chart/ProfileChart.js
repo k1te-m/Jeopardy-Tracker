@@ -40,13 +40,10 @@ const ProfileChart = () => {
         backgroundColor: "rgba(75,192,192,1)",
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 2,
-        data: gameScores,
+        data: gameScores.reverse(),
       },
     ],
   };
-
-  console.log(gameDates);
-  console.log(gameScores);
 
   if (profile.games.length === 0) {
     return <></>;

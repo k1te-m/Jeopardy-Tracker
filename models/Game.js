@@ -23,6 +23,10 @@ const gameSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  gameDate: {
+    type: Date,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Game", gameSchema);

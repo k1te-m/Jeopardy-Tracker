@@ -32,7 +32,7 @@ const GameList = () => {
               history.push(`/${game._id}`);
             }}
           >
-            <h3 className="card-title">{formatDate(game.date)}</h3>
+            <h3 className="card-title">{formatDate(game.gameDate)}</h3>
             <h5 className="card-subtitle">Winnings: ${game.score}</h5>
           </button>
         </div>

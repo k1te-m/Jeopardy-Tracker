@@ -11,13 +11,13 @@ const Header = () => {
   const history = useHistory();
   const auth = useSelector(selectAuth);
 
-  return (
-    <div className="container-fluid">
-      <div className="header">
+  if (auth.isAuthenticated) {
+    return (
+      <div className="container-fluid header">
         <div className="row">
           <div className="col">
             <Link to="/" className="navBrand my-auto">
-              True Daily Double
+              TDD!
             </Link>
           </div>
           <div className="col">
@@ -37,8 +37,32 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else if (!auth.isAuthenticated) {
+    return (
+      <div className="container-fluid header">
+        <div className="row">
+          <div className="col-3">
+            <Link to="/" className="navBrand my-auto">
+              <img src="../images/tdd.png" />
+            </Link>
+          </div>
+          <div className="col-9 pt-3">
+            <div className="row">
+              <Link to="/signup">
+                <button className="button btn">Signup</button>
+              </Link>
+            </div>
+            <div className="row">
+              <Link to="/login">
+                <button className="button btn">Login</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 };
 
 export default Header;

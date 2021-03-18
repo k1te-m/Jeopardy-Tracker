@@ -1,0 +1,24 @@
+.landing {
+    font-family: "Libre Baskerville", serif;
+    color: black;
+    display: flex;
+    flex-wrap: flex;
+    flex-direction: row-reverse;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    h1 {
+      font-size: 40px;
+    }
+    .landing-img {
+      height: 128px;
+      width: auto;
+    }
+    .side-image {
+      width: 325px;
+      object-fit: fill;
+      margin: 0px;
+      padding: 0px;
+    }
+  }
+  

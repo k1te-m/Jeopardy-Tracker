@@ -9,7 +9,7 @@ const Footer = () => {
   const history = useHistory();
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid footer">
       <div className="row row-cols-3">
         <Link to="/">Home</Link>
         {auth.user && (

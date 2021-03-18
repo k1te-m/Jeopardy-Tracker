@@ -9,6 +9,7 @@ import Game from "./features/games/game/Game";
 import setAuthToken from "./utils/setAuthToken";
 import Alert from "./features/alert/Alert";
 import Profile from "./features/profile/Profile";
+import "./sass/main.scss";
 
 function App() {
   if (localStorage.token) {

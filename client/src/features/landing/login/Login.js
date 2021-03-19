@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAuth, loginUser } from "../../auth/authSlice";
 import { SET_ALERT } from "../../alert/alertSlice";
+import Footer from "../../footer/Footer";
+import Header from "../../header/Header";
 
 const Login = (props) => {
   const auth = useSelector(selectAuth);
@@ -49,31 +51,37 @@ const Login = (props) => {
 
   return (
     <>
-      <div className="container">
-        <h3>Account Log in</h3>
-        <form>
-          <label htmlFor="email">Email</label>
-          <input
-            className="form-control"
-            onChange={handleInputChange}
-            name="email"
-            placeholder="ksmith@gmail.com"
-            type="email"
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            className="form-control"
-            onChange={handleInputChange}
-            name="password"
-            placeholder="password"
-            value={password}
-            type="password"
-          />
-          <button className="btn btn-success mt-2" onClick={handleFormSubmit}>
-            Log in
-          </button>
-        </form>
+      <Header />
+      <div className="container login-container">
+        <div className="row pt-3">
+          <h3>Account Log in</h3>
+        </div>
+        <div className="row">
+          <form>
+            <label htmlFor="email">Email</label>
+            <input
+              className="form-control"
+              onChange={handleInputChange}
+              name="email"
+              placeholder="ksmith@gmail.com"
+              type="email"
+            />
+            <label htmlFor="password">Password</label>
+            <input
+              className="form-control"
+              onChange={handleInputChange}
+              name="password"
+              placeholder="password"
+              value={password}
+              type="password"
+            />
+            <button className="button btn mt-2" onClick={handleFormSubmit}>
+              Log in
+            </button>
+          </form>
+        </div>
       </div>
+      <Footer />
     </>
   );
 };

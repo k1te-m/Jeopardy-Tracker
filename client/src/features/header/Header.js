@@ -17,7 +17,7 @@ const Header = () => {
         <div className="row">
           <div className="col">
             <Link to="/" className="navBrand my-auto">
-              TDD!
+              <img src="../images/tdd.png" alt="True Daily Double" />
             </Link>
           </div>
           <div className="col">
@@ -44,7 +44,7 @@ const Header = () => {
         <div className="row">
           <div className="col-3">
             <Link to="/" className="navBrand my-auto">
-              <img src="../images/tdd.png" />
+              <img src="../images/tdd.png" alt="True Daily Double" />
             </Link>
           </div>
           <div className="col-9 pt-3">

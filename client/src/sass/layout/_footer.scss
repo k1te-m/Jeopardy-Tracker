@@ -2,4 +2,23 @@
     text-align: center;
     background-color: gainsboro;
     border-top: 3px solid #525476;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 230px;
+    a {
+        font-size: 12px;
+    }
+}
+
+.disclaimer {
+    font-size: 10px;
+}
+
+.copyright {
+    font-size: 10px;
+}
+
+.donate {
+    font-size: 10px;
 }

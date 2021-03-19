@@ -1,5 +1,21 @@
 @import "components/button.scss";
 @import "~react-datepicker/dist/react-datepicker.css";
 @import "pages/landing.scss";
+@import "pages/login.scss";
+@import "pages/signup.scss";
 @import "layout/header.scss";
 @import "layout/footer.scss";
+
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+}
+
+html {
+  min-height: 100%;
+}

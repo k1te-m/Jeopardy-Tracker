@@ -24,9 +24,10 @@ const GameList = () => {
 
   if (userGames !== []) {
     userGameList = userGames.map((game) => (
-      <div className="card" key={game._id}>
+      <div className="card text-center" key={game._id}>
         <div className="card-body">
           <button
+            className="button game-button"
             onClick={() => {
               localStorage.setItem("game", game._id);
               history.push(`/${game._id}`);
@@ -38,6 +39,8 @@ const GameList = () => {
         </div>
       </div>
     ));
+  } else {
+    userGameList = <p>No games found.</p>;
   }
 
   return userGameList;

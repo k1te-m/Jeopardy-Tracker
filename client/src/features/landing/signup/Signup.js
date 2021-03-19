@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAuth, registerUser } from "../../auth/authSlice";
+import Footer from "../../footer/Footer";
+import Header from "../../header/Header";
 
 const SignUp = (props) => {
   const auth = useSelector(selectAuth);
@@ -46,8 +48,9 @@ const SignUp = (props) => {
 
   return (
     <>
-      <div className="container">
-        <div className="row">
+      <Header />
+      <div className="container signup-container">
+        <div className="row pt-3">
           <h3>Create account</h3>
         </div>
         <div className="row">
@@ -94,12 +97,13 @@ const SignUp = (props) => {
                 type="password"
               />
             </div>
-            <button className="btn btn-success mt-2" onClick={handleFormSubmit}>
+            <button className="button btn mt-2" onClick={handleFormSubmit}>
               Submit
             </button>
           </form>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

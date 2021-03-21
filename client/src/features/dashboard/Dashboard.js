@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, forwardRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAuth, loadUser } from "../auth/authSlice";
 import { getGames, createGame } from "../games/gamesSlice";
 import GameList from "../games/gamelist/GameList";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-import DatePicker from "react-datepicker";
+import DatePicker, { CalendarContainer } from "react-datepicker";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -30,15 +30,35 @@ const Dashboard = () => {
     );
   };
 
+  const CustomInput = forwardRef(({ value, onClick }, ref) => (
+    <button className="custom-input button" onClick={onClick} ref={ref}>
+      {value}
+    </button>
+  ));
+
+  const MyContainer = ({ className, children }) => {
+    return (
+      <div style={{ padding: "16px", background: "#5e17eb", color: "#fff" }}>
+        <CalendarContainer className={className}>
+          <div style={{ background: "#f0f0f0" }}>Please select a date.</div>
+          <div style={{ position: "relative" }}>{children}</div>
+        </CalendarContainer>
+      </div>
+    );
+  };
+
   return (
     <>
       <Header />
-      <div className="container">
+      <div className="container dashboard">
         <div className="row">
-          <div className="col-5">
-            <h3>Welcome, {auth.user.username}!</h3>
-          </div>
           <div className="col-7">
+            <h5>Welcome, {auth.user.username}!</h5>
+            <button className="button" onClick={(e) => submitNewGame(e)}>
+              Create New Game
+            </button>
+          </div>
+          <div className="col-5">
             <div className="form-group">
               <label htmlFor="gameDate">Select Game Date: </label>
               <DatePicker
@@ -49,7 +69,9 @@ const Dashboard = () => {
                 name="gameDate"
                 dateFormat="MM/dd/yyyy"
                 popperClassName="popper"
-                popperPlacement="auto"
+                popperPlacement="bottom-end"
+                customInput={<CustomInput />}
+                calendarContainer={MyContainer}
                 popperModifiers={{
                   offset: {
                     enabled: true,
@@ -63,7 +85,6 @@ const Dashboard = () => {
                 }}
               />
             </div>
-            <button onClick={(e) => submitNewGame(e)}>Create New Game</button>
           </div>
         </div>
         <div className="row">

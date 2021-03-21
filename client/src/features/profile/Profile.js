@@ -49,7 +49,7 @@ const Profile = (props) => {
     gameList = profile.games.map((game) => (
       <div className="card">
         <div className="card-body">
-          <h5 className="card-title">{formatDate(game.date)}</h5>
+          <h5 className="card-title">{formatDate(game.gameDate)}</h5>
           <p className="card-text">Winnings: ${game.score}</p>
         </div>
       </div>

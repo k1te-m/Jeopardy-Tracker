@@ -21,7 +21,7 @@ const ProfileChart = () => {
   };
 
   const gameDates = games.map((game) => {
-    return formatDate(game.date);
+    return formatDate(game.gameDate);
   });
 
   const gameScores = games.map((game) => {

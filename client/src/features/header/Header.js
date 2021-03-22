@@ -15,24 +15,28 @@ const Header = () => {
     return (
       <div className="container-fluid header">
         <div className="row">
-          <div className="col">
+          <div className="col-3">
             <Link to="/" className="navBrand my-auto">
               <img src="../images/tdd.png" alt="True Daily Double" />
             </Link>
           </div>
-          <div className="col">
+          <div className="col-9 pt-3">
             <div className="row">
-              <button
-                className="button"
-                onClick={() => {
-                  history.push(`/profile/${auth.user.username}`);
-                }}
-              >
-                Profile
-              </button>
+              <Link>
+                <button
+                  className="button btn profile"
+                  onClick={() => {
+                    history.push(`/profile/${auth.user.username}`);
+                  }}
+                >
+                  Profile
+                </button>
+              </Link>
             </div>
             <div className="row">
-              <LogoutButton logout={() => dispatch(LOGOUT())} />
+              <Link>
+                <LogoutButton logout={() => dispatch(LOGOUT())} />
+              </Link>
             </div>
           </div>
         </div>
@@ -50,12 +54,12 @@ const Header = () => {
           <div className="col-9 pt-3">
             <div className="row">
               <Link to="/signup">
-                <button className="button btn">Signup</button>
+                <button className="button btn signup">Signup</button>
               </Link>
             </div>
             <div className="row">
               <Link to="/login">
-                <button className="button btn">Login</button>
+                <button className="button btn login">Login</button>
               </Link>
             </div>
           </div>

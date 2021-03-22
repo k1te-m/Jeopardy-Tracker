@@ -59,40 +59,86 @@ const GameBoard = () => {
   };
 
   const checkWager = (response) => {
-    if (currentGame.game.score < 1000) {
-      if (wagerInt > 1000) {
-        setWagerObject({ ...wagerObject, wager: "" });
-        return dispatch(
-          SET_ALERT({
-            message: "Cannot wager more than $1000.",
-            type: "danger",
-          })
-        );
+    if (response === "correct") {
+      if (currentGame.game.score < 1000) {
+        if (wagerInt > 1000) {
+          setWagerObject({ ...wagerObject, wager: "" });
+          dispatch(
+            SET_ALERT({
+              message: "Cannot wager more than $1000.",
+              type: "danger",
+            })
+          );
+        } else {
+          dispatch(INCREMENT_SCORE(wagerInt));
+
+          const id = currentGame.game._id;
+          const score = currentGame.game.score + wagerInt;
+
+          dispatch(updateGameScore({ id, score }));
+          setWagerObject({ ...wagerObject, wager: "" });
+          dispatch(TOGGLE_MODAL());
+        }
+      } else {
+        if (wagerInt > currentGame.game.score) {
+          setWagerObject({ ...wagerObject, wager: "" });
+          dispatch(
+            SET_ALERT({
+              message: "Cannot wager more than current earnings.",
+              type: "danger",
+            })
+          );
+        } else {
+          dispatch(INCREMENT_SCORE(wagerInt));
+
+          const id = currentGame.game._id;
+          const score = currentGame.game.score + wagerInt;
+
+          dispatch(updateGameScore({ id, score }));
+          setWagerObject({ ...wagerObject, wager: "" });
+          dispatch(TOGGLE_MODAL());
+        }
       }
-    } else if (wagerInt > currentGame.game.score) {
-      setWagerObject({ ...wagerObject, wager: "" });
-      return dispatch(
-        SET_ALERT({
-          message: "Cannot wager more than current earnings.",
-          type: "danger",
-        })
-      );
-    } else if (response === "correct") {
-      dispatch(INCREMENT_SCORE(wagerInt));
-
-      const id = currentGame.game._id;
-      const score = currentGame.game.score + wagerInt;
-
-      dispatch(updateGameScore({ id, score }));
-      setWagerObject({ ...wagerObject, wager: "" });
-      dispatch(TOGGLE_MODAL());
     } else if (response === "incorrect") {
-      dispatch(DECREMENT_SCORE(wagerInt));
-      const id = currentGame.game._id;
-      const score = currentGame.game.score - wagerInt;
-      dispatch(updateGameScore({ id, score }));
-      setWagerObject({ ...wagerObject, wager: "" });
-      dispatch(TOGGLE_MODAL());
+      if (currentGame.game.score < 1000) {
+        if (wagerInt > 1000) {
+          setWagerObject({ ...wagerObject, wager: "" });
+          dispatch(
+            SET_ALERT({
+              message: "Cannot wager more than $1000.",
+              type: "danger",
+            })
+          );
+        } else {
+          dispatch(DECREMENT_SCORE(wagerInt));
+
+          const id = currentGame.game._id;
+          const score = currentGame.game.score - wagerInt;
+
+          dispatch(updateGameScore({ id, score }));
+          setWagerObject({ ...wagerObject, wager: "" });
+          dispatch(TOGGLE_MODAL());
+        }
+      } else {
+        if (wagerInt > currentGame.game.score) {
+          setWagerObject({ ...wagerObject, wager: "" });
+          dispatch(
+            SET_ALERT({
+              message: "Cannot wager more than current earnings.",
+              type: "danger",
+            })
+          );
+        } else {
+          dispatch(DECREMENT_SCORE(wagerInt));
+
+          const id = currentGame.game._id;
+          const score = currentGame.game.score - wagerInt;
+
+          dispatch(updateGameScore({ id, score }));
+          setWagerObject({ ...wagerObject, wager: "" });
+          dispatch(TOGGLE_MODAL());
+        }
+      }
     }
   };
 

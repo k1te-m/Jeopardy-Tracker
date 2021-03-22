@@ -12,21 +12,26 @@ const Footer = () => {
     <div className="footer">
       <div className="container">
         <div className="row">
-          <div className="col-4">
+          <div className="col-5 mt-1">
             <div className="row">
               <Link to="/">Home</Link>
             </div>
+            <hr className="m-1" />
             {auth.user && (
-              <div className="row">
-                <button
-                  onClick={() => {
-                    history.push(`/profile/${auth.user.username}`);
-                  }}
-                >
-                  Profile
-                </button>
-              </div>
+              <>
+                <div className="row">
+                  <button
+                    onClick={() => {
+                      history.push(`/profile/${auth.user.username}`);
+                    }}
+                  >
+                    Profile
+                  </button>
+                </div>
+                <hr className="m-1" />
+              </>
             )}
+
             <div className="row">
               <a
                 href="https://standuptocancer.org/research/research-portfolio/dream-teams/transforming-pancreatic-cancer-dream-team/"
@@ -36,6 +41,7 @@ const Footer = () => {
                 SU2C - Pancreatic Cancer Research
               </a>
             </div>
+            <hr className="m-1" />
             <div className="row">
               <a
                 href="https://www.jeopardy.com/contestant-zone"
@@ -45,6 +51,7 @@ const Footer = () => {
                 Current Jeopardy Contestants
               </a>
             </div>
+            <hr className="m-1" />
             <div className="row">
               <a
                 href="https://github.com/k1te-m/Jeopardy-Tracker"
@@ -55,12 +62,13 @@ const Footer = () => {
               </a>
             </div>
           </div>
-          <div className="col-8">
+          <div className="col-7">
             <p className="disclaimer">
               Disclaimer: This website is in no way affiliated with Jeopardy!,
               CBS Media Ventures, or Jeopardy Productions, Inc. It is only meant
               as a tool to enhance your viewing experience.
             </p>
+            <hr className="m-1" />
             <p className="donate">
               Please consider donating to the SU2C Pancreatic Cancer Research
               Fund or your charity of choice.

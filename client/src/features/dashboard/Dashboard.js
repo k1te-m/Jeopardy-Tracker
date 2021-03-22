@@ -52,13 +52,10 @@ const Dashboard = () => {
       <Header />
       <div className="container dashboard">
         <div className="row">
+          <h5>Welcome, {auth.user.username}!</h5>
+        </div>
+        <div className="row">
           <div className="col-7">
-            <h5>Welcome, {auth.user.username}!</h5>
-            <button className="button" onClick={(e) => submitNewGame(e)}>
-              Create New Game
-            </button>
-          </div>
-          <div className="col-5">
             <div className="form-group">
               <label htmlFor="gameDate">Select Game Date: </label>
               <DatePicker
@@ -86,7 +83,17 @@ const Dashboard = () => {
               />
             </div>
           </div>
+
+          <div className="col-5">
+            <button
+              className="button new-game"
+              onClick={(e) => submitNewGame(e)}
+            >
+              Create New Game
+            </button>
+          </div>
         </div>
+
         <div className="row">
           <GameList />
         </div>

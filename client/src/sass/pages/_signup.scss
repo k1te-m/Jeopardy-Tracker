@@ -1,3 +1,11 @@
-.signup-container{
-    margin-bottom: 110px;
+@import "../helpers/mixins";
+
+.signup-container {
+  margin-bottom: 134px;
+  @include respond-above(lg) {
+    margin-bottom: 184px;
+  }
+  @include respond-above(xl) {
+    margin-bottom: 234px;
+  }
 }

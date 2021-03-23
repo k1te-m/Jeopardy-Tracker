@@ -1,3 +1,11 @@
-.login-container{
-    margin-bottom: 300px;
+@import "../helpers/mixins";
+
+.login-container {
+  margin-bottom: 320px;
+  @include respond-above(lg) {
+    margin-bottom: 380px;
+  }
+  @include respond-above(xl) {
+    margin-bottom: 420px;
+  }
 }

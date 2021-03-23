@@ -25,7 +25,7 @@ const Header = () => {
               <li>
                 <Link>
                   <button
-                    className="button btn profile"
+                    className="button btn purpbtn"
                     onClick={() => {
                       history.push(`/profile/${auth.user.username}`);
                     }}
@@ -57,12 +57,12 @@ const Header = () => {
             <ul>
               <li>
                 <Link to="/signup">
-                  <button className="button btn signup">Signup</button>
+                  <button className="button btn purpbtn">Signup</button>
                 </Link>
               </li>
               <li>
                 <Link to="/login">
-                  <button className="button btn login">Login</button>
+                  <button className="button btn purpbtn">Login</button>
                 </Link>
               </li>
             </ul>

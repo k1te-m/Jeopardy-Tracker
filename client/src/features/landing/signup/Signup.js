@@ -97,7 +97,10 @@ const SignUp = (props) => {
                 type="password"
               />
             </div>
-            <button className="button btn mt-2" onClick={handleFormSubmit}>
+            <button
+              className="button btn mt-2 purpbtn"
+              onClick={handleFormSubmit}
+            >
               Submit
             </button>
           </form>

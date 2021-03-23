@@ -31,7 +31,7 @@ const Dashboard = () => {
   };
 
   const CustomInput = forwardRef(({ value, onClick }, ref) => (
-    <button className="custom-input button" onClick={onClick} ref={ref}>
+    <button className="custom-input button purpbtn" onClick={onClick} ref={ref}>
       {value}
     </button>
   ));
@@ -86,14 +86,15 @@ const Dashboard = () => {
 
           <div className="col-5">
             <button
-              className="button new-game"
+              className="button new-game purpbtn"
               onClick={(e) => submitNewGame(e)}
             >
               Create New Game
             </button>
           </div>
         </div>
-
+        <hr />
+        <h5>Games:</h5>
         <div className="row">
           <GameList />
         </div>

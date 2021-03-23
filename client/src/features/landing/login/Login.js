@@ -75,7 +75,10 @@ const Login = (props) => {
               value={password}
               type="password"
             />
-            <button className="button btn mt-2" onClick={handleFormSubmit}>
+            <button
+              className="button btn mt-2 purpbtn"
+              onClick={handleFormSubmit}
+            >
               Log in
             </button>
           </form>

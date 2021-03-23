@@ -35,8 +35,8 @@ const ProfileChart = () => {
         label: "Winnings",
         fill: false,
         lineTension: 0.5,
-        backgroundColor: "rgba(75,192,192,1)",
-        borderColor: "rgba(0,0,0,1)",
+        backgroundColor: "rgba(130,55,148,1)",
+        borderColor: "rgba(6,12,233,1)",
         borderWidth: 2,
         data: gameScores.reverse(),
       },
@@ -55,6 +55,7 @@ const ProfileChart = () => {
               display: true,
               text: "Daily Winnings!",
               fontSize: 20,
+              fontColor: "black",
             },
             legend: {
               display: true,
@@ -67,7 +68,7 @@ const ProfileChart = () => {
                     callback: function (value, index, values) {
                       return "$" + value;
                     },
-                    suggestedMax: 30000,
+                    suggestedMax: 20000,
                     suggestedMin: 0,
                   },
                 },

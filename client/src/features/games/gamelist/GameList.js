@@ -22,6 +22,10 @@ const GameList = () => {
     return formattedTime;
   };
 
+  const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   if (userGames !== []) {
     userGameList = userGames.map((game) => (
       <div className="card text-center game-card" key={game._id}>
@@ -34,7 +38,9 @@ const GameList = () => {
             }}
           >
             <h3 className="card-title">{formatDate(game.gameDate)}</h3>
-            <h5 className="card-subtitle">Winnings: ${game.score}</h5>
+            <h5 className="card-subtitle">
+              Winnings: ${numberWithCommas(game.score)}
+            </h5>
           </button>
         </div>
       </div>

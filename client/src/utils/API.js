@@ -19,4 +19,7 @@ export default {
   getProfileGames: async (username) => {
     return await axios.get("/api/user/games/" + username);
   },
+  getHighScores: async () => {
+    return await axios.get("/api/game");
+  },
 };

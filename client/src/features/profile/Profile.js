@@ -43,6 +43,10 @@ const Profile = (props) => {
     return formattedTime;
   };
 
+  const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   let gameList = <p>No recent games found...</p>;
 
   if (profile.games.length > 0) {
@@ -51,7 +55,9 @@ const Profile = (props) => {
         <div className="card text-center">
           <div className="card-body">
             <h5 className="card-title">{formatDate(game.gameDate)}</h5>
-            <p className="card-text">Winnings: ${game.score}</p>
+            <p className="card-text">
+              Winnings: ${numberWithCommas(game.score)}
+            </p>
           </div>
         </div>
       </>

@@ -32,7 +32,10 @@ const Footer = () => {
                 <hr className="m-1" />
               </>
             )}
-
+            <div className="row">
+              <Link to="/highscores">High Scores</Link>
+            </div>
+            <hr className="m-1" />
             <div className="row">
               <a
                 href="https://standuptocancer.org/research/research-portfolio/dream-teams/transforming-pancreatic-cancer-dream-team/"

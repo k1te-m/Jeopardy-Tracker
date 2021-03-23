@@ -1,0 +1,17 @@
+.highscore {
+  .card {
+    border: none;
+    background-color: blue;
+    color: white;
+    border: 1px solid gold;
+    text-shadow: 2px 2px black;
+  }
+  li {
+    list-style-position: inside;
+  }
+  .gold {
+    color: gold;
+    font-weight: bold;
+    font-size: 25px;
+  }
+}

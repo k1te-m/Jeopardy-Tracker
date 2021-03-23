@@ -10,6 +10,7 @@ import setAuthToken from "./utils/setAuthToken";
 import Alert from "./features/alert/Alert";
 import Profile from "./features/profile/Profile";
 import "./sass/main.scss";
+import Highscores from "./features/highscores/Highscores";
 
 function App() {
   if (localStorage.token) {
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/highscores" component={Highscores} />
           <PrivateRoute exact path="/dashboard">
             <Dashboard />
           </PrivateRoute>

@@ -296,10 +296,18 @@ const GameBoard = () => {
           </div>
           <div className="row m-2">
             <div className="col">
-              <button onClick={(e) => handleCorrectAnswer(e)}>Correct</button>
+              <button
+                className="button btn answer"
+                onClick={(e) => handleCorrectAnswer(e)}
+              >
+                Correct
+              </button>
             </div>
             <div className="col">
-              <button onClick={(e) => hanldeIncorrectAnswer(e)}>
+              <button
+                className="button btn answer"
+                onClick={(e) => hanldeIncorrectAnswer(e)}
+              >
                 Incorrect
               </button>
             </div>
@@ -330,10 +338,18 @@ const GameBoard = () => {
           </div>
           <div className="row m-2">
             <div className="col">
-              <button onClick={(e) => handleFJ(e, "correct")}>Correct</button>
+              <button
+                className="button btn answer"
+                onClick={(e) => handleFJ(e, "correct")}
+              >
+                Correct
+              </button>
             </div>
             <div className="col">
-              <button onClick={(e) => handleFJ(e, "incorrect")}>
+              <button
+                className="button btn answer"
+                onClick={(e) => handleFJ(e, "incorrect")}
+              >
                 Incorrect
               </button>
             </div>

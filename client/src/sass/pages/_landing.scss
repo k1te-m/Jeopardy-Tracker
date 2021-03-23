@@ -1,27 +1,30 @@
+@import "../helpers/mixins";
+
 .landing {
-    font-family: "Libre Baskerville", serif;
-    color: black;
-    display: flex;
-    flex-wrap: flex;
-    flex-direction: row-reverse;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    h1 {
-      font-size: 40px;
-    }
-    .landing-img {
-      height: 128px;
-      width: auto;
-    }
-    .side-image {
-      max-width: 100%;
-      object-fit: fill;
-      margin: 0px;
-      padding: 0px;
-    }
-   
+  font-family: "Libre Baskerville", serif;
+  color: black;
+  display: flex;
+  flex-wrap: flex;
+  flex-direction: row-reverse;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    font-size: 40px;
   }
+  .landing-img {
+    height: 128px;
+    width: auto;
+  }
+  .side-image {
+    max-width: 100%;
+    object-fit: fill;
+    margin: 0px;
+    @include respond-above(md) {
+      padding-top: 165px;
+    }
+  }
+}
 .tribute {
   display: flex;
   flex-wrap: flex;
@@ -32,6 +35,11 @@
   .quote {
     font-style: italic;
   }
+  .quote-section {
+    @include respond-above(md) {
+      padding-top: 115px;
+    }
+  }
   .video {
     width: 100%;
     height: 325px;
@@ -39,5 +47,3 @@
     margin: 0px;
   }
 }
-
-  

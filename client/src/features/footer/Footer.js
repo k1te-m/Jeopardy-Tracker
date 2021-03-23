@@ -21,6 +21,7 @@ const Footer = () => {
               <>
                 <div className="row">
                   <button
+                    className="profile-button"
                     onClick={() => {
                       history.push(`/profile/${auth.user.username}`);
                     }}

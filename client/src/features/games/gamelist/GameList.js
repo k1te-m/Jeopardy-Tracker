@@ -24,7 +24,7 @@ const GameList = () => {
 
   if (userGames !== []) {
     userGameList = userGames.map((game) => (
-      <div className="card text-center" key={game._id}>
+      <div className="card text-center game-card" key={game._id}>
         <div className="card-body">
           <button
             className="button game-button"

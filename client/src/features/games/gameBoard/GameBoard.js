@@ -219,6 +219,7 @@ const GameBoard = () => {
 
   let dollarAmounts = jeopardy.map((dollarAmount) => (
     <button
+      className="dollar-button"
       onClick={(e) => {
         handleDollarClick(e);
       }}
@@ -235,6 +236,7 @@ const GameBoard = () => {
   if (showDJ === true) {
     dollarAmounts = doubleJeopardy.map((dollarAmount) => (
       <button
+        className="dollar-button"
         onClick={(e) => {
           handleDollarClick(e);
         }}
@@ -251,26 +253,39 @@ const GameBoard = () => {
 
   return (
     <>
-      <div className="row">
-        <span>Earnings: ${currentGame.game.score}</span>
+      <div className="row mb-2">
+        <h5>Earnings: ${currentGame.game.score}</h5>
       </div>
       <div className="row">{dollarAmounts}</div>
       {showDJ === false && (
-        <div className="row">
-          <button onClick={(e) => handleDJClick(e)}>
+        <div className="row justify-content-center mt-4">
+          <button
+            className="button btn game-nav"
+            onClick={(e) => handleDJClick(e)}
+          >
             Move to Double Jeopardy!
           </button>
         </div>
       )}
       {showDJ === true && (
         <>
-          <div className="row">
-            <button onClick={(e) => handleFJClick(e)}>Final Jeopardy!</button>
-          </div>
-          <div className="row">
-            <button onClick={(e) => handleDJClick(e)}>
-              Back to prior round.
-            </button>
+          <div className="row justify-content-center mt-4">
+            <div className="col-6" align="center">
+              <button
+                className="button btn game-nav"
+                onClick={(e) => handleDJClick(e)}
+              >
+                Back to prior round.
+              </button>
+            </div>
+            <div className="col-6" align="center">
+              <button
+                className="button btn game-nav"
+                onClick={(e) => handleFJClick(e)}
+              >
+                Final Jeopardy!
+              </button>
+            </div>
           </div>
         </>
       )}
@@ -281,10 +296,18 @@ const GameBoard = () => {
           </div>
           <div className="row m-2">
             <div className="col">
-              <button onClick={(e) => handleCorrectAnswer(e)}>Correct</button>
+              <button
+                className="button btn answer"
+                onClick={(e) => handleCorrectAnswer(e)}
+              >
+                Correct
+              </button>
             </div>
             <div className="col">
-              <button onClick={(e) => hanldeIncorrectAnswer(e)}>
+              <button
+                className="button btn answer"
+                onClick={(e) => hanldeIncorrectAnswer(e)}
+              >
                 Incorrect
               </button>
             </div>
@@ -315,10 +338,18 @@ const GameBoard = () => {
           </div>
           <div className="row m-2">
             <div className="col">
-              <button onClick={(e) => handleFJ(e, "correct")}>Correct</button>
+              <button
+                className="button btn answer"
+                onClick={(e) => handleFJ(e, "correct")}
+              >
+                Correct
+              </button>
             </div>
             <div className="col">
-              <button onClick={(e) => handleFJ(e, "incorrect")}>
+              <button
+                className="button btn answer"
+                onClick={(e) => handleFJ(e, "incorrect")}
+              >
                 Incorrect
               </button>
             </div>

@@ -14,30 +14,32 @@ const Header = () => {
   if (auth.isAuthenticated) {
     return (
       <div className="container-fluid header">
-        <div className="row">
+        <div className="row w-100">
           <div className="col-3">
             <Link to="/" className="navBrand my-auto">
               <img src="../images/tdd.png" alt="True Daily Double" />
             </Link>
           </div>
-          <div className="col-9 pt-3">
-            <div className="row">
-              <Link>
-                <button
-                  className="button btn profile"
-                  onClick={() => {
-                    history.push(`/profile/${auth.user.username}`);
-                  }}
-                >
-                  Profile
-                </button>
-              </Link>
-            </div>
-            <div className="row">
-              <Link>
-                <LogoutButton logout={() => dispatch(LOGOUT())} />
-              </Link>
-            </div>
+          <div className="col-9 my-auto p-0">
+            <ul>
+              <li>
+                <Link>
+                  <button
+                    className="button btn profile"
+                    onClick={() => {
+                      history.push(`/profile/${auth.user.username}`);
+                    }}
+                  >
+                    Profile
+                  </button>
+                </Link>
+              </li>
+              <li>
+                <Link>
+                  <LogoutButton logout={() => dispatch(LOGOUT())} />
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -45,23 +47,25 @@ const Header = () => {
   } else if (!auth.isAuthenticated) {
     return (
       <div className="container-fluid header">
-        <div className="row">
+        <div className="row w-100">
           <div className="col-3">
             <Link to="/" className="navBrand my-auto">
               <img src="../images/tdd.png" alt="True Daily Double" />
             </Link>
           </div>
-          <div className="col-9 pt-3">
-            <div className="row">
-              <Link to="/signup">
-                <button className="button btn signup">Signup</button>
-              </Link>
-            </div>
-            <div className="row">
-              <Link to="/login">
-                <button className="button btn login">Login</button>
-              </Link>
-            </div>
+          <div className="col-9 my-auto p-0">
+            <ul>
+              <li>
+                <Link to="/signup">
+                  <button className="button btn signup">Signup</button>
+                </Link>
+              </li>
+              <li>
+                <Link to="/login">
+                  <button className="button btn login">Login</button>
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

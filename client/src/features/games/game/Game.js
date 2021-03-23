@@ -43,7 +43,7 @@ const Game = (props) => {
       <Header />
       <div className="container-fluid">
         <div className="row">
-          <p>{formatDate(currentGame.game.gameDate)}</p>
+          <h1>{formatDate(currentGame.game.gameDate)}</h1>
         </div>
         <GameBoard />
       </div>

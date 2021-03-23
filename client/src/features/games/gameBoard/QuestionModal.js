@@ -14,14 +14,16 @@ const Overlay = styled(motion.div)`
 const ModalContainer = styled(motion.div)`
   width: 325px;
   height: auto;
-  background-color: #f2f2f2;
+  background-color: blue;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 12px;
-  border: 1px solid #3b945e;
+  border: 1px solid gold;
   text-align: center;
+  color: gold;
+  text-shadow: 2px 2px black;
   @media screen and (min-width: 576px) {
     width: 450px;
   }
@@ -36,7 +38,7 @@ const ModalContainer = styled(motion.div)`
 const CloseButton = styled.button`
   position: absolute;
   right: 3%;
-  bottom: -0%;
+  top: -0%;
   height: auto;
   width: auto;
   background: transparent;
@@ -45,6 +47,7 @@ const CloseButton = styled.button`
   margin: 0;
   font-size: 1.5rem;
   color: black;
+  text-shadow: none;
 `;
 
 const modalVariant = {

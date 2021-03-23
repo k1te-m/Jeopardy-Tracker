@@ -4,7 +4,7 @@ const Tribute = () => {
   return (
     <div className="container tribute">
       <div className="row">
-        <div className="col-md-6">
+        <div className="col-md-6 quote-section">
           <p className="quote">
             "We're trying to build a gentler, kinder society. And if we all chip
             in — we'll get there." - Alex Trebec

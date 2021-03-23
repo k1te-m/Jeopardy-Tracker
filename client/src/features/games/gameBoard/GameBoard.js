@@ -219,6 +219,7 @@ const GameBoard = () => {
 
   let dollarAmounts = jeopardy.map((dollarAmount) => (
     <button
+      className="dollar-button"
       onClick={(e) => {
         handleDollarClick(e);
       }}
@@ -235,6 +236,7 @@ const GameBoard = () => {
   if (showDJ === true) {
     dollarAmounts = doubleJeopardy.map((dollarAmount) => (
       <button
+        className="dollar-button"
         onClick={(e) => {
           handleDollarClick(e);
         }}
@@ -251,26 +253,39 @@ const GameBoard = () => {
 
   return (
     <>
-      <div className="row">
-        <span>Earnings: ${currentGame.game.score}</span>
+      <div className="row mb-2">
+        <h5>Earnings: ${currentGame.game.score}</h5>
       </div>
       <div className="row">{dollarAmounts}</div>
       {showDJ === false && (
-        <div className="row">
-          <button onClick={(e) => handleDJClick(e)}>
+        <div className="row justify-content-center mt-4">
+          <button
+            className="button btn game-nav"
+            onClick={(e) => handleDJClick(e)}
+          >
             Move to Double Jeopardy!
           </button>
         </div>
       )}
       {showDJ === true && (
         <>
-          <div className="row">
-            <button onClick={(e) => handleFJClick(e)}>Final Jeopardy!</button>
-          </div>
-          <div className="row">
-            <button onClick={(e) => handleDJClick(e)}>
-              Back to prior round.
-            </button>
+          <div className="row justify-content-center mt-4">
+            <div className="col-6" align="center">
+              <button
+                className="button btn game-nav"
+                onClick={(e) => handleDJClick(e)}
+              >
+                Back to prior round.
+              </button>
+            </div>
+            <div className="col-6" align="center">
+              <button
+                className="button btn game-nav"
+                onClick={(e) => handleFJClick(e)}
+              >
+                Final Jeopardy!
+              </button>
+            </div>
           </div>
         </>
       )}

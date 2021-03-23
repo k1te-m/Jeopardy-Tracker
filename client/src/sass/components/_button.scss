@@ -7,7 +7,7 @@
   border-radius: 10px;
   background-color: #060ce9;
   color: white;
-  border: 2px solid black;
+  border: 1px solid black;
   text-shadow: 2px 2px black;
 }
 .game-button {
@@ -50,6 +50,11 @@
 }
 
 .answer {
+  background-color: #823794;
+  text-shadow: none;
+}
+
+.purpbtn {
   background-color: #823794;
   text-shadow: none;
 }

@@ -59,7 +59,7 @@ const Profile = (props) => {
   return (
     <>
       <Header />
-      <div className="container">
+      <div className="container profile-container">
         <div className="row">
           <h1>{profile.user.username}</h1>
         </div>

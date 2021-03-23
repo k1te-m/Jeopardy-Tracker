@@ -47,12 +47,14 @@ const Profile = (props) => {
 
   if (profile.games.length > 0) {
     gameList = profile.games.map((game) => (
-      <div className="card">
-        <div className="card-body">
-          <h5 className="card-title">{formatDate(game.gameDate)}</h5>
-          <p className="card-text">Winnings: ${game.score}</p>
+      <>
+        <div className="card text-center">
+          <div className="card-body">
+            <h5 className="card-title">{formatDate(game.gameDate)}</h5>
+            <p className="card-text">Winnings: ${game.score}</p>
+          </div>
         </div>
-      </div>
+      </>
     ));
   }
 
@@ -69,8 +71,8 @@ const Profile = (props) => {
         <div className="row">
           <p>Recent games:</p>
         </div>
-        <div className="row">{gameList}</div>
-        <div className="row">
+        <div className="row gamelist">{gameList}</div>
+        <div className="row mt-3 mb-0 chart">
           <ProfileChart />
         </div>
       </div>

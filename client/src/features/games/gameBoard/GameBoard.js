@@ -312,11 +312,10 @@ const GameBoard = () => {
               </button>
             </div>
             <div className="row m-2">
-              For Daily Double, please place your wager below.
+              For Daily Double, please place your wager below:
             </div>
             <div className="row m-2">
               <div className="form-group">
-                <label htmlFor="wager">Wager:</label>
                 <input
                   name="wager"
                   id="wager"
@@ -353,20 +352,21 @@ const GameBoard = () => {
                 Incorrect
               </button>
             </div>
-            <div className="row">Please enter your wager below.</div>
-            <div className="row m-2">
-              <div className="form-group">
-                <label htmlFor="wager">Wager:</label>
-                <input
-                  name="finalJWager"
-                  id="finalJWager"
-                  value={finalJWager}
-                  onChange={handleInputChange}
-                  className="form-control"
-                  type="number"
-                  placeholder="$1000"
-                />
-              </div>
+          </div>
+          <div className="row">
+            <p>Please enter your wager below:</p>
+          </div>
+          <div className="row m-2">
+            <div className="form-group">
+              <input
+                name="finalJWager"
+                id="finalJWager"
+                value={finalJWager}
+                onChange={handleInputChange}
+                className="form-control"
+                type="number"
+                placeholder="$1000"
+              />
             </div>
           </div>
         </div>

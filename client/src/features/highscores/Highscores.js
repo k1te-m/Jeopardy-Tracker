@@ -8,8 +8,6 @@ const Highscores = () => {
   const dispatch = useDispatch();
   const scores = useSelector(selectHighScores);
 
-  console.log(scores);
-
   useEffect(() => {
     dispatch(getHighScores());
   }, [dispatch]);

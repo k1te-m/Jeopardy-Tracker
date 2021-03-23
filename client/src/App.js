@@ -25,12 +25,14 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/highscores" component={Highscores} />
           <PrivateRoute exact path="/dashboard">
             <Dashboard />
           </PrivateRoute>
           <PrivateRoute path="/profile/:username" component={Profile} />
-          <PrivateRoute path="/:game" component={Game} />
+          <PrivateRoute path="/game/:game" component={Game} />
+          <PrivateRoute exact path="/highscores">
+            <Highscores />
+          </PrivateRoute>
         </Switch>
       </Router>
     </div>

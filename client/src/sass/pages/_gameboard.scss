@@ -1,0 +1,7 @@
+@import "../helpers/mixins";
+
+.gameboard {
+  @include respond-above(md) {
+    margin-bottom: 110px;
+  }
+}

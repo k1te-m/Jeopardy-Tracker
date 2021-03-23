@@ -41,7 +41,7 @@ const Game = (props) => {
   return (
     <>
       <Header />
-      <div className="container-fluid">
+      <div className="container-fluid gameboard">
         <div className="row">
           <h1>{formatDate(currentGame.game.gameDate)}</h1>
         </div>

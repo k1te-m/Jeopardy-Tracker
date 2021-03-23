@@ -1,6 +1,15 @@
+@import "../helpers/mixins";
+
 .dashboard {
   margin-bottom: 200px;
-}
-.game-card {
-  border: none;
+  @include respond-above(md) {
+    margin-bottom: 300px;
+  }
+  @include respond-above(lg) {
+    margin-bottom: 635px;
+  }
+  .game-card {
+    border: none;
+    background-color: transparent;
+  }
 }

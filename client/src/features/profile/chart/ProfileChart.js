@@ -60,16 +60,28 @@ const ProfileChart = () => {
             legend: {
               display: true,
               position: "right",
+              labels: {
+                fontColor: "black",
+                fontSize: 18,
+              },
             },
             scales: {
               yAxes: [
                 {
                   ticks: {
+                    fontColor: "black",
                     callback: function (value, index, values) {
                       return "$" + value;
                     },
                     suggestedMax: 20000,
                     suggestedMin: 0,
+                  },
+                },
+              ],
+              xAxes: [
+                {
+                  ticks: {
+                    fontColor: "black",
                   },
                 },
               ],

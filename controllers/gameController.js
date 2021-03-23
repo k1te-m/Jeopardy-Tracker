@@ -36,4 +36,11 @@ module.exports = {
       res.status(422).json(error);
     }
   },
+  getAllGames: (req, res) => {
+    Game.find({})
+      .sort({ score: -1 })
+      .limit(10)
+      .then((games) => res.json(games))
+      .catch((error) => res.status(422).json(error));
+  },
 };

@@ -20,6 +20,11 @@ const initialState = {
     toggleModal: false,
     toggleFinalJeopardy: false,
   },
+  highScores: {
+    isLoading: false,
+    scores: [],
+    error: null,
+  },
 };
 
 export const getGames = createAsyncThunk(
@@ -54,6 +59,14 @@ export const updateGameScore = createAsyncThunk(
   "games/updateScore",
   async ({ id, score }, thunkAPI) => {
     const response = await API.updateScore(id, { id, score });
+    return response.data;
+  }
+);
+
+export const getHighScores = createAsyncThunk(
+  "games/getHighScores",
+  async (arg, thunkAPI) => {
+    const response = await API.getHighScores();
     return response.data;
   }
 );
@@ -127,6 +140,17 @@ const gamesSlice = createSlice({
       state.newGame.isPending = false;
       state.newGame.error = "Error creating game. Please try again.";
     },
+    [getHighScores.pending]: (state) => {
+      state.highScores.isLoading = true;
+    },
+    [getHighScores.fulfilled]: (state, action) => {
+      state.highScores.isLoading = false;
+      state.highScores.scores = action.payload;
+    },
+    [getHighScores.rejected]: (state) => {
+      state.highScores.isLoading = false;
+      state.highScores.error = "Error fetching high scores. Please try again.";
+    },
   },
 });
 
@@ -150,5 +174,6 @@ export const selectCurrentValue = (state) =>
   state.games.currentGame.currentQuestionValue;
 export const selectFinalJeopardy = (state) =>
   state.games.currentGame.toggleFinalJeopardy;
+export const selectHighScores = (state) => state.games.highScores.scores;
 
 export default gamesSlice.reducer;

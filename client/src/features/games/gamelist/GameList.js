@@ -16,6 +16,7 @@ const GameList = () => {
     const formattedDate = dateObj.toLocaleString("en-US", {
       month: "long",
       day: "numeric",
+      year: "numeric",
       timeZone: tz,
     });
     const formattedTime = formattedDate;
@@ -34,7 +35,7 @@ const GameList = () => {
             className="button game-button"
             onClick={() => {
               localStorage.setItem("game", game._id);
-              history.push(`/${game._id}`);
+              history.push(`/game/${game._id}`);
             }}
           >
             <h3 className="card-title">{formatDate(game.gameDate)}</h3>

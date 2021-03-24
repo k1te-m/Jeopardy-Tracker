@@ -15,6 +15,7 @@ const Login = (props) => {
     }
   }, [auth.isAuthenticated, props.history]);
 
+  // State Object for user email and password inputs
   const [userObject, setUserObject] = useState({
     email: "",
     password: "",
@@ -22,11 +23,19 @@ const Login = (props) => {
 
   const { email, password } = userObject;
 
+  // Handles input changes for email/password inputs
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserObject({ ...userObject, [name]: value });
   };
 
+  /* Handles form submit for login, checks to see if all fields 
+     have been entered. Sends user an alert if a field is missing.
+     Checks to see if the email provided matches proper email format
+     and sends alert if it does not. If criteria met, dispatch(loginUser)
+     is called, checking user credentials and providing token and user data
+     if valid.
+  */
   const handleFormSubmit = (event) => {
     event.preventDefault();
     const mailformat = /.+@.+\..+/;

@@ -10,6 +10,7 @@ const initialState = {
   error: null,
 };
 
+// Sets auth token from token stored locally and retrieves user info
 export const loadUser = createAsyncThunk(
   "auth/loadUser",
   async (user, thunkAPI) => {
@@ -20,6 +21,7 @@ export const loadUser = createAsyncThunk(
   }
 );
 
+// Registers user to the db and loads the user
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async ({ name, username, email, password }, thunkAPI) => {
@@ -43,6 +45,7 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+// Checks user email & password against db info, sets auth token, and returns user info
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async ({ email, password }, thunkAPI) => {

@@ -30,6 +30,7 @@ const Profile = (props) => {
     dispatch(getProfileGames(username));
   }, [dispatch, username, auth.user, auth.isAuthenticated, history]);
 
+  // Formats date to local time and provides day, month, and year
   const formatDate = (date) => {
     const dateObj = new Date(date);
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -43,17 +44,20 @@ const Profile = (props) => {
     return formattedTime;
   };
 
+  // Formats numbers to add appropriate commas
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   let gameList = <p>No recent games found...</p>;
 
+  // Return most recent five games from profile.games
   const size = 5;
   const recentGames = profile.games.slice(0, size);
 
   const scores = profile.games.map((game) => game.score);
 
+  // Average user scores from all recorded games
   const averageScores = (scores) => {
     let total = 0;
     for (let i = 0; i < scores.length; i++) {
@@ -65,6 +69,7 @@ const Profile = (props) => {
     return average;
   };
 
+  // Retrieve the user's highest score
   const userHighScore = (scores) => {
     return Math.max.apply(Math, scores);
   };

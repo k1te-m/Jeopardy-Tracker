@@ -14,6 +14,7 @@ const SignUp = (props) => {
     }
   }, [auth.error, auth.isAuthenticated, props.history]);
 
+  // State object for user name, username, email, and password confirmation
   const [userObject, setUserObject] = useState({
     name: "",
     username: "",
@@ -24,11 +25,19 @@ const SignUp = (props) => {
 
   const { name, username, email, password, password2 } = userObject;
 
+  // Handles input changes for all form fields
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserObject({ ...userObject, [name]: value });
   };
 
+  /* Handles form submit for user sign-up. Checks that all 
+     available fields have been entered, that email is in valid
+     format and that both password fields match. If all criteria is met
+     dispatch(registerUser) is called. User email is checked against db
+     and if not already registered, user will be registered and logged in.
+     Any error will be sent as an alert to the user.
+  */
   const handleFormSubmit = (event) => {
     event.preventDefault();
     const mailformat = /.+@.+\..+/;

@@ -7,6 +7,7 @@ const alertSlice = createSlice({
   name: "alert",
   initialState,
   reducers: {
+    // Pushes alert into alert state with message and action provided by payload when called
     SET_ALERT: (state, action) => {
       const id = uuid();
       state.push({

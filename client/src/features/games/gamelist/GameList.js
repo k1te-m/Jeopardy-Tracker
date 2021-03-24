@@ -8,8 +8,10 @@ const GameList = () => {
 
   let history = useHistory();
 
+  // userGameList set to No games found by default
   let userGameList = <p>No games found.</p>;
 
+  // Formats date to local time and provides day, month, and year
   const formatDate = (date) => {
     const dateObj = new Date(date);
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -23,10 +25,12 @@ const GameList = () => {
     return formattedTime;
   };
 
+  // Formats numbers to add appropriate commas
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
+  // Map userGames and return a button for each game with link to gameboard
   if (userGames !== []) {
     userGameList = userGames.map((game) => (
       <div className="card text-center game-card" key={game._id}>

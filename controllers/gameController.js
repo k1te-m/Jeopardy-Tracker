@@ -4,7 +4,7 @@ module.exports = {
   getUserGames: (req, res) => {
     const id = req.params.id;
     Game.find({ userId: id })
-      .sort({ date: -1 })
+      .sort({ gameDate: -1 })
       .then((games) => res.json(games))
       .catch((error) => res.status(422).json(error));
   },

@@ -48,8 +48,8 @@ const Highscores = () => {
         <div className="row">
           <h1>High Scores</h1>
         </div>
-        <div className="row">
-          <ol>{highScores}</ol>
+        <div className="row justify-content-center">
+          <ol className="row justify-content-center">{highScores}</ol>
         </div>
       </div>
       <Footer />

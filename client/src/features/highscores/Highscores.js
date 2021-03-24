@@ -3,10 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { getHighScores, selectHighScores } from "../games/gamesSlice";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
+import { useHistory } from "react-router-dom";
 
 const Highscores = () => {
   const dispatch = useDispatch();
   const scores = useSelector(selectHighScores);
+  let history = useHistory();
 
   useEffect(() => {
     dispatch(getHighScores());
@@ -33,7 +35,16 @@ const Highscores = () => {
     <li>
       <div className="card text-center">
         <div className="card-body">
-          <h3 className="card-title">{score.username}</h3>
+          <h3 className="card-title">
+            <button
+              className="user-profile"
+              onClick={() => {
+                history.push(`/profile/${score.username}`);
+              }}
+            >
+              {score.username}
+            </button>
+          </h3>
           <h5 className="card-subtitle">{formatDate(score.gameDate)}</h5>
           <p className="card-text gold">${numberWithCommas(score.score)}</p>
         </div>

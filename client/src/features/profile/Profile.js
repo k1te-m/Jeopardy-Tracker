@@ -49,8 +49,13 @@ const Profile = (props) => {
 
   let gameList = <p>No recent games found...</p>;
 
+  const size = 5;
+  const recentGames = profile.games.slice(0, size);
+
+  console.log(recentGames);
+
   if (profile.games.length > 0) {
-    gameList = profile.games.map((game) => (
+    gameList = recentGames.map((game) => (
       <>
         <div className="card text-center">
           <div className="card-body">

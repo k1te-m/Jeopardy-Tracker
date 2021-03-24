@@ -52,7 +52,6 @@ const ProfileChart = () => {
   } else {
     return (
       <div>
-        // Line chart configuration for React Chart
         <Line
           data={state}
           options={{

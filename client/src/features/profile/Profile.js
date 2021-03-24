@@ -52,17 +52,32 @@ const Profile = (props) => {
   const size = 5;
   const recentGames = profile.games.slice(0, size);
 
-  console.log(recentGames);
+  const scores = profile.games.map((game) => game.score);
+
+  const averageScores = (scores) => {
+    let total = 0;
+    for (let i = 0; i < scores.length; i++) {
+      total += scores[i];
+    }
+
+    let average = total / scores.length;
+
+    return average;
+  };
+
+  const userHighScore = (scores) => {
+    return Math.max.apply(Math, scores);
+  };
 
   if (profile.games.length > 0) {
     gameList = recentGames.map((game) => (
       <>
-        <div className="card text-center">
+        <div className="card text-center mb-1">
           <div className="card-body">
-            <h5 className="card-title">{formatDate(game.gameDate)}</h5>
-            <p className="card-text">
+            <h3 className="card-title">{formatDate(game.gameDate)}</h3>
+            <h5 className="card-text winnings">
               Winnings: ${numberWithCommas(game.score)}
-            </p>
+            </h5>
           </div>
         </div>
       </>
@@ -80,9 +95,21 @@ const Profile = (props) => {
           <h5>Joined: {formatDate(profile.user.register_date)}</h5>
         </div>
         <div className="row">
+          <h6>
+            Largest Single Day Winnings: $
+            {numberWithCommas(userHighScore(scores))}
+          </h6>
+        </div>
+        <div className="row">
+          <h6>Average Winnings: ${numberWithCommas(averageScores(scores))}</h6>
+        </div>
+        <hr className="w-100" />
+        <div className="row">
           <p>Recent games:</p>
         </div>
-        <div className="row gamelist">{gameList}</div>
+        <div className="row row-cols-3 gamelist justify-content-center">
+          {gameList}
+        </div>
         <div className="row mt-3 mb-0 chart">
           <ProfileChart />
         </div>

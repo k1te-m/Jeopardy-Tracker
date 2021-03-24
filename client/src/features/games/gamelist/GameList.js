@@ -39,7 +39,7 @@ const GameList = () => {
             }}
           >
             <h3 className="card-title">{formatDate(game.gameDate)}</h3>
-            <h5 className="card-subtitle">
+            <h5 className="card-subtitle winnings">
               Winnings: ${numberWithCommas(game.score)}
             </h5>
           </button>

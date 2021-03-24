@@ -62,7 +62,7 @@ const ProfileChart = () => {
               position: "right",
               labels: {
                 fontColor: "black",
-                fontSize: 18,
+                fontSize: 12,
               },
             },
             scales: {
@@ -70,6 +70,7 @@ const ProfileChart = () => {
                 {
                   ticks: {
                     fontColor: "black",
+                    fontSize: 10,
                     callback: function (value, index, values) {
                       return "$" + value;
                     },
@@ -82,6 +83,7 @@ const ProfileChart = () => {
                 {
                   ticks: {
                     fontColor: "black",
+                    fontSize: 10,
                   },
                 },
               ],

@@ -12,7 +12,7 @@ module.exports = {
   getProfileGames: (req, res) => {
     const username = req.params.username;
     Game.find({ username: username })
-      .sort({ date: -1 })
+      .sort({ gameDate: -1 })
       .then((games) => res.json(games))
       .catch((error) => res.status(422).json(error));
   },

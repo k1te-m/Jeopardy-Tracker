@@ -6,15 +6,23 @@ import GameList from "../games/gamelist/GameList";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import DatePicker, { CalendarContainer } from "react-datepicker";
+import Loading from "../loading/Loading";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const auth = useSelector(selectAuth);
   const [gameDate, setGameDate] = useState(new Date());
+  const [loadWheel, setLoadWheel] = useState(true);
 
   useEffect(() => {
     if (!auth.user) {
       dispatch(loadUser());
+    }
+    if (auth.isAuthenticated) {
+      dispatch(getGames(auth.user._id));
+      setTimeout(() => {
+        setLoadWheel(false);
+      }, 700);
     }
     dispatch(getGames(auth.user._id));
   }, [auth.user, dispatch]);
@@ -50,61 +58,65 @@ const Dashboard = () => {
     );
   };
 
-  return (
-    <>
-      <Header />
-      <div className="container dashboard">
-        <div className="row">
-          <h5>Welcome, {auth.user.username}!</h5>
-        </div>
-        <div className="row">
-          <div className="col-7">
-            <div className="form-group">
-              <label htmlFor="gameDate">Select Game Date: </label>
-              <DatePicker
-                selected={gameDate}
-                onChange={(date) => {
-                  setGameDate(date);
-                }}
-                name="gameDate"
-                dateFormat="MM/dd/yyyy"
-                popperClassName="popper"
-                popperPlacement="bottom-end"
-                customInput={<CustomInput />}
-                calendarContainer={MyContainer}
-                popperModifiers={{
-                  offset: {
-                    enabled: true,
-                    offset: "5px, 10px",
-                  },
-                  preventOverflow: {
-                    enabled: true,
-                    escapeWithReference: false,
-                    boundariesElement: "viewport",
-                  },
-                }}
-              />
+  if (loadWheel === true) {
+    return <Loading />;
+  } else {
+    return (
+      <>
+        <Header />
+        <div className="container dashboard">
+          <div className="row">
+            <h5>Welcome, {auth.user.username}!</h5>
+          </div>
+          <div className="row">
+            <div className="col-7">
+              <div className="form-group">
+                <label htmlFor="gameDate">Select Game Date: </label>
+                <DatePicker
+                  selected={gameDate}
+                  onChange={(date) => {
+                    setGameDate(date);
+                  }}
+                  name="gameDate"
+                  dateFormat="MM/dd/yyyy"
+                  popperClassName="popper"
+                  popperPlacement="bottom-end"
+                  customInput={<CustomInput />}
+                  calendarContainer={MyContainer}
+                  popperModifiers={{
+                    offset: {
+                      enabled: true,
+                      offset: "5px, 10px",
+                    },
+                    preventOverflow: {
+                      enabled: true,
+                      escapeWithReference: false,
+                      boundariesElement: "viewport",
+                    },
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="col-5">
+              <button
+                className="button new-game purpbtn"
+                onClick={(e) => submitNewGame(e)}
+              >
+                Create New Game
+              </button>
             </div>
           </div>
-
-          <div className="col-5">
-            <button
-              className="button new-game purpbtn"
-              onClick={(e) => submitNewGame(e)}
-            >
-              Create New Game
-            </button>
+          <hr />
+          <h5>Games:</h5>
+          <div className="row">
+            <GameList />
           </div>
         </div>
-        <hr />
-        <h5>Games:</h5>
-        <div className="row">
-          <GameList />
-        </div>
-      </div>
-      <Footer />
-    </>
-  );
+        <Footer />
+      </>
+    );
+  }
 };
 
 export default Dashboard;

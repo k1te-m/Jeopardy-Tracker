@@ -7,6 +7,7 @@ const ProfileChart = () => {
   const profile = useSelector(selectProfile);
   const { games } = profile;
 
+  // Formats date to local time and provides day, month, and year
   const formatDate = (date) => {
     const dateObj = new Date(date);
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -20,14 +21,17 @@ const ProfileChart = () => {
     return formattedTime;
   };
 
+  // Returns formatted game dates for chart labels
   const gameDates = games.map((game) => {
     return formatDate(game.gameDate);
   });
 
+  // Returns game scores for chart data in number format
   const gameScores = games.map((game) => {
     return parseInt(game.score);
   });
 
+  // State for React Chart, using gameDates as labels and gameScores as data
   const state = {
     labels: gameDates.reverse(),
     datasets: [
@@ -48,6 +52,7 @@ const ProfileChart = () => {
   } else {
     return (
       <div>
+        // Line chart configuration for React Chart
         <Line
           data={state}
           options={{

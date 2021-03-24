@@ -16,6 +16,7 @@ import {
 import Modal from "./QuestionModal";
 import { SET_ALERT } from "../../alert/alertSlice";
 
+// Clue values for Jeopardy and Double Jeopardy
 const jeopardy = ["$200", "$400", "$600", "$800", "$1000"];
 const doubleJeopardy = ["$400", "$800", "$1200", "$1600", "$2000"];
 
@@ -27,6 +28,7 @@ const GameBoard = () => {
   const currentValue = useSelector(selectCurrentValue);
   const showFJ = useSelector(selectFinalJeopardy);
 
+  // Wager object containing both daily double and final jeopardy wager properties
   const [wagerObject, setWagerObject] = useState({
     wager: "",
     finalJWager: "",
@@ -34,16 +36,21 @@ const GameBoard = () => {
 
   const { wager, finalJWager } = wagerObject;
 
+  // Convert wager strings to number
   const wagerInt = parseInt(wager);
   const finalJWagerInt = parseInt(finalJWager);
 
-  const noWager = isNaN(wagerInt);
+  // Check if wager field has been populated. No entry or default results in true
+  const isWagerNaN = isNaN(wagerInt);
 
+  // Toggles board from Jeopardy to Double Jeopardy
   const handleDJClick = (e) => {
     e.preventDefault();
     dispatch(TOGGLE_DOUBLEJ());
   };
 
+  /* When clue is clicked, value is taken from innerText and the "$" is sliced off, 
+  value is then converted to a number, question value is set via dispatch and the question modal is toggled */
   const handleDollarClick = (e) => {
     e.preventDefault();
     const value = e.target.innerText;
@@ -53,11 +60,19 @@ const GameBoard = () => {
     dispatch(TOGGLE_MODAL());
   };
 
+  // Toggles the Final Jeopardy modal
   const handleFJClick = (e) => {
     e.preventDefault();
     dispatch(TOGGLE_FJ());
   };
 
+  /* Logic for correct and incorrect double jeopardy wager answers.
+     If user score is currently under $1000, user can 
+     only wager up to $1000. Otherwise the user is limited
+     to the amount of their current winnings. User score is
+     incremented or decremented based on correct or incorrect
+     answers. Wager input is cleared and the modal is closed
+  */
   const checkWager = (response) => {
     if (response === "correct") {
       if (currentGame.game.score < 1000) {
@@ -142,10 +157,18 @@ const GameBoard = () => {
     }
   };
 
+  /* Logic for when correct button is clicked. 
+     If wager is NaN, meaning no input has been entered,
+     dispatch INCREMENT_SCORE with the current question value to update Redux.
+     Then select the id of current game, and increment score to dispatch
+     updateGameScore with the id and new score. This will update game score within 
+     the db. Finally the modal is toggled and user is brought back to gameboard.
+     If a wager is present the checkWager function is called passing an argument of "correct".
+  */
   const handleCorrectAnswer = (e) => {
     e.preventDefault();
 
-    if (noWager) {
+    if (isWagerNaN) {
       dispatch(INCREMENT_SCORE(currentValue));
 
       const id = currentGame.game._id;
@@ -158,10 +181,15 @@ const GameBoard = () => {
     }
   };
 
+  /* Similar logic to handleCorrectAnswer function. Checks
+     to see if a wager is present, if not score will be decremented, 
+     and saved to the db. If wager is present, checkWager is called 
+     with argument of "incorrect".
+  */
   const hanldeIncorrectAnswer = (e) => {
     e.preventDefault();
 
-    if (noWager) {
+    if (isWagerNaN) {
       dispatch(DECREMENT_SCORE(currentValue));
 
       const id = currentGame.game._id;
@@ -174,11 +202,18 @@ const GameBoard = () => {
     }
   };
 
+  // Handles input changes for both Double Jeopardy and Final Jeopardy inputs
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setWagerObject({ ...wagerObject, [name]: parseInt(value) });
   };
 
+  /* Similar to the checkWager function this function handles correct and incorrect 
+     Final Jeopardy answers. Users are not allowed to wager more than current winnings,
+     and will be alerted when trying to do so. Score will be incremented or decremented by
+     the user wager amount based on their correct or incorrect answer. Finally the finalJWager
+     property is set back to an empty string, and the modal is toggled closed.
+  */
   const checkFJWager = (response) => {
     if (finalJWagerInt > currentGame.game.score) {
       return dispatch(
@@ -208,6 +243,7 @@ const GameBoard = () => {
     }
   };
 
+  // Function to handle FJ response
   const handleFJ = (e, response) => {
     e.preventDefault();
     if (response === "correct") {
@@ -217,6 +253,7 @@ const GameBoard = () => {
     }
   };
 
+  // Sets dollar amounts to map Jeopardy clue values and return button for each dollar amount.
   let dollarAmounts = jeopardy.map((dollarAmount) => (
     <button
       className="dollar-button"
@@ -233,6 +270,7 @@ const GameBoard = () => {
     </button>
   ));
 
+  // If showDJ (Double Jeoopardy) is true, dollarAmounts will map the doubleJeopardy clue values.
   if (showDJ === true) {
     dollarAmounts = doubleJeopardy.map((dollarAmount) => (
       <button

@@ -27,6 +27,7 @@ const initialState = {
   },
 };
 
+// Retrieves specific user games from db
 export const getGames = createAsyncThunk(
   "games/getGames",
   async (userId, thunkAPI) => {
@@ -35,6 +36,7 @@ export const getGames = createAsyncThunk(
   }
 );
 
+// Sets current game when clicking into gameboard
 export const setCurrentGame = createAsyncThunk(
   "games/setGame",
   async (id, thunkAPI) => {
@@ -43,6 +45,7 @@ export const setCurrentGame = createAsyncThunk(
   }
 );
 
+// Creates a new game for the user
 export const createGame = createAsyncThunk(
   "games/createGame",
   async ({ userId, username, gameDate }, thunkAPI) => {
@@ -55,6 +58,7 @@ export const createGame = createAsyncThunk(
   }
 );
 
+// Updates game score with incremented or decremented value
 export const updateGameScore = createAsyncThunk(
   "games/updateScore",
   async ({ id, score }, thunkAPI) => {
@@ -63,6 +67,7 @@ export const updateGameScore = createAsyncThunk(
   }
 );
 
+// Retrieves the top 10 high scores from all users
 export const getHighScores = createAsyncThunk(
   "games/getHighScores",
   async (arg, thunkAPI) => {
@@ -75,6 +80,7 @@ const gamesSlice = createSlice({
   name: "games",
   initialState,
   reducers: {
+    // Toggles Double Jeopardy modal
     TOGGLE_DOUBLEJ: (state) => {
       if (state.currentGame.game.showDoubleJeopardy === false) {
         state.currentGame.game.showDoubleJeopardy = true;
@@ -82,6 +88,7 @@ const gamesSlice = createSlice({
         state.currentGame.game.showDoubleJeopardy = false;
       }
     },
+    // Toggles question modal
     TOGGLE_MODAL: (state) => {
       if (state.currentGame.toggleModal === false) {
         state.currentGame.toggleModal = true;
@@ -89,6 +96,7 @@ const gamesSlice = createSlice({
         state.currentGame.toggleModal = false;
       }
     },
+    // Toggles FJ modal
     TOGGLE_FJ: (state) => {
       if (state.currentGame.toggleFinalJeopardy === false) {
         state.currentGame.toggleFinalJeopardy = true;
@@ -96,12 +104,15 @@ const gamesSlice = createSlice({
         state.currentGame.toggleFinalJeopardy = false;
       }
     },
+    // Sets the question value when clue button is clicked
     SET_QUESTION_VALUE: (state, action) => {
       state.currentGame.currentQuestionValue = action.payload;
     },
+    // Increments game score by question value
     INCREMENT_SCORE: (state, action) => {
       state.currentGame.game.score += action.payload;
     },
+    // Decrements game score by question value
     DECREMENT_SCORE: (state, action) => {
       state.currentGame.game.score -= action.payload;
     },

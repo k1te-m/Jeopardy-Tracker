@@ -19,6 +19,7 @@ const Dashboard = () => {
     dispatch(getGames(auth.user._id));
   }, [auth.user, dispatch]);
 
+  // Dispatches createGame and adds new game to db
   const submitNewGame = (e) => {
     e.preventDefault();
     dispatch(
@@ -30,12 +31,14 @@ const Dashboard = () => {
     );
   };
 
+  // Custom input for calendar component
   const CustomInput = forwardRef(({ value, onClick }, ref) => (
     <button className="custom-input button purpbtn" onClick={onClick} ref={ref}>
       {value}
     </button>
   ));
 
+  // Custom container for calendar component
   const MyContainer = ({ className, children }) => {
     return (
       <div style={{ padding: "16px", background: "#5e17eb", color: "#fff" }}>

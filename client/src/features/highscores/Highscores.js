@@ -14,6 +14,7 @@ const Highscores = () => {
     dispatch(getHighScores());
   }, [dispatch]);
 
+  // Formats date to local time and provides day, month, and year
   const formatDate = (date) => {
     const dateObj = new Date(date);
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -27,6 +28,7 @@ const Highscores = () => {
     return formattedTime;
   };
 
+  // Formats numbers to add appropriate commas
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };

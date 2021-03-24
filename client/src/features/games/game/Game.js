@@ -25,6 +25,7 @@ const Game = (props) => {
     dispatch(setCurrentGame(gameID));
   }, [dispatch, gameID, auth.isAuthenticated, auth.user, history]);
 
+  // Formats date to local time and provides day, month, and year
   const formatDate = (date) => {
     const dateObj = new Date(date);
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;

@@ -3,6 +3,7 @@ import authReducer from "../features/auth/authSlice";
 import gamesReducer from "../features/games/gamesSlice";
 import alertReducer from "../features/alert/alertSlice";
 import profileReducer from "../features/profile/profileSlice";
+import followReducer from "../features/follow/followSlice";
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     games: gamesReducer,
     profile: profileReducer,
     alert: alertReducer,
+    follow: followReducer,
   },
 });

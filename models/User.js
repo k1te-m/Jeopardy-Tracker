@@ -31,10 +31,12 @@ const userSchema = new Schema({
   following: {
     type: [String],
     trim: true,
+    unique: true,
   },
   followers: {
     type: [String],
     trim: true,
+    unique: true,
   },
 });
 

@@ -94,21 +94,33 @@ const Profile = (props) => {
       <Header />
       <div className="container profile-container">
         <div className="row">
-          <h1>{profile.user.username}</h1>
+          <div className="col">
+            <div className="row">
+              <h1>{profile.user.username}</h1>
+            </div>
+            <div className="row">
+              <h5>Joined: {formatDate(profile.user.register_date)}</h5>
+            </div>
+            <div className="row">
+              <h6>
+                Largest Single Day Winnings: $
+                {numberWithCommas(userHighScore(scores))}
+              </h6>
+            </div>
+            <div className="row">
+              <h6>
+                Average Winnings: ${numberWithCommas(averageScores(scores))}
+              </h6>
+            </div>
+          </div>
+          <div className="col">
+            <button className="button">Follow</button>
+          </div>
+          <hr className="w-100" />
         </div>
-        <div className="row">
-          <h5>Joined: {formatDate(profile.user.register_date)}</h5>
-        </div>
-        <div className="row">
-          <h6>
-            Largest Single Day Winnings: $
-            {numberWithCommas(userHighScore(scores))}
-          </h6>
-        </div>
-        <div className="row">
-          <h6>Average Winnings: ${numberWithCommas(averageScores(scores))}</h6>
-        </div>
-        <hr className="w-100" />
+      </div>
+
+      <div className="container profile-container">
         <div className="row">
           <p>Recent games:</p>
         </div>
@@ -119,6 +131,7 @@ const Profile = (props) => {
           <ProfileChart />
         </div>
       </div>
+
       <Footer />
     </>
   );

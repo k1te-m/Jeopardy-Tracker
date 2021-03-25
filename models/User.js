@@ -28,6 +28,16 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  following: {
+    type: [String],
+    trim: true,
+    unique: true,
+  },
+  followers: {
+    type: [String],
+    trim: true,
+    unique: true,
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);

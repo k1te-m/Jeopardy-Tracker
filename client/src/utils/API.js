@@ -22,4 +22,7 @@ export default {
   getHighScores: async () => {
     return await axios.get("/api/game");
   },
+  followUser: async (id, data) => {
+    return await axios.put("/api/follow/" + id, data);
+  },
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAuth, loadUser } from "../auth/authSlice";
 import {
@@ -10,12 +10,15 @@ import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { useHistory } from "react-router-dom";
 import ProfileChart from "./chart/ProfileChart";
+import Loading from "../loading/Loading";
+import FollowButton from "./followButton/FollowButton";
 
 const Profile = (props) => {
   const dispatch = useDispatch();
   const auth = useSelector(selectAuth);
   const profile = useSelector(selectProfile);
   const history = useHistory();
+  const [loadWheel, setLoadWheel] = useState(true);
 
   const username = props.match.params.username;
 
@@ -26,6 +29,9 @@ const Profile = (props) => {
     if (!auth.isAuthenticated) {
       history.push("/");
     }
+    setTimeout(() => {
+      setLoadWheel(false);
+    }, 700);
     dispatch(setUserProfile(username));
     dispatch(getProfileGames(username));
   }, [dispatch, username, auth.user, auth.isAuthenticated, history]);
@@ -66,7 +72,9 @@ const Profile = (props) => {
 
     let average = total / scores.length;
 
-    return average;
+    const roundedAverage = Math.round(average * 100) / 100;
+
+    return roundedAverage;
   };
 
   // Retrieve the user's highest score
@@ -89,52 +97,62 @@ const Profile = (props) => {
     ));
   }
 
-  return (
-    <>
-      <Header />
-      <div className="container profile-container">
-        <div className="row">
-          <div className="col">
-            <div className="row">
-              <h1>{profile.user.username}</h1>
+  if (loadWheel === true) {
+    return <Loading />;
+  } else {
+    return (
+      <>
+        <Header />
+        <div className="container profile-container">
+          <div className="row">
+            <div className="col">
+              <div className="row">
+                <h1>{profile.user.username}</h1>
+              </div>
+              <div className="row">
+                <h6>Joined: {formatDate(profile.user.register_date)}</h6>
+              </div>
+              <div className="row">
+                <h6>
+                  Largest Single Day Winnings: $
+                  {numberWithCommas(userHighScore(scores))}
+                </h6>
+              </div>
             </div>
-            <div className="row">
-              <h5>Joined: {formatDate(profile.user.register_date)}</h5>
+            <div className="col">
+              <div className="row">
+                <FollowButton />
+              </div>
+              <div className="row">
+                <span>Following: {profile.user.following.length} </span>
+                <span>Followers: {profile.user.followers.length}</span>
+              </div>
+              <div className="row">
+                <h6>
+                  Average Winnings: ${numberWithCommas(averageScores(scores))}
+                </h6>
+              </div>
             </div>
-            <div className="row">
-              <h6>
-                Largest Single Day Winnings: $
-                {numberWithCommas(userHighScore(scores))}
-              </h6>
-            </div>
-            <div className="row">
-              <h6>
-                Average Winnings: ${numberWithCommas(averageScores(scores))}
-              </h6>
-            </div>
+            <hr className="w-100" />
           </div>
-          <div className="col">
-            <button className="button">Follow</button>
+        </div>
+
+        <div className="container profile-container">
+          <div className="row">
+            <p>Recent games:</p>
           </div>
-          <hr className="w-100" />
+          <div className="row row-cols-3 gamelist justify-content-center">
+            {gameList}
+          </div>
+          <div className="row mt-3 mb-0 chart">
+            <ProfileChart />
+          </div>
         </div>
-      </div>
 
-      <div className="container profile-container">
-        <div className="row">
-          <p>Recent games:</p>
-        </div>
-        <div className="row row-cols-3 gamelist justify-content-center">
-          {gameList}
-        </div>
-        <div className="row mt-3 mb-0 chart">
-          <ProfileChart />
-        </div>
-      </div>
-
-      <Footer />
-    </>
-  );
+        <Footer />
+      </>
+    );
+  }
 };
 
 export default Profile;
